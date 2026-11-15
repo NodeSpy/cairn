@@ -1,0 +1,7 @@
+/target
+target/
+packaging/synology/out/
+*.spk
+tests/hosts.txt
+.scratch/
+.cargo/config.toml

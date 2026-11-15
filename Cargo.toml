@@ -1,0 +1,43 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/cairn-proto",
+    "crates/cairn-server",
+    "crates/cairn-client",
+    "crates/cairn-fuse",
+    "crates/cairn-testkit",
+]
+exclude = ["experiments"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+
+[workspace.dependencies]
+anyhow = "1"
+thiserror = "2"
+serde = { version = "1", features = ["derive"] }
+bincode = { version = "2", features = ["serde"] }
+blake3 = { version = "1", features = ["rayon"] }
+fastcdc = "4"
+rusqlite = { version = "0.37", features = ["bundled"] }
+rustls = { version = "0.23", default-features = false, features = ["ring", "std", "tls12", "logging"] }
+rustls-pemfile = "2"
+rcgen = { version = "0.14", features = ["x509-parser"] }
+tokio = { version = "1", features = ["rt-multi-thread", "net", "io-util", "sync", "time", "macros", "signal"] }
+tokio-rustls = { version = "0.26", default-features = false, features = ["ring", "tls12", "logging"] }
+toml = "0.9"
+fuser = "0.18"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+libc = "0.2"
+crossbeam-channel = "0.5"
+parking_lot = "0.12"
+tempfile = "3"
+rand = "0.9"
+cairn-proto = { path = "crates/cairn-proto" }
+cairn-client = { path = "crates/cairn-client" }
+
+[profile.release]
+debug = 1

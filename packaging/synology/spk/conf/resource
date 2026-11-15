@@ -1,0 +1,15 @@
+{
+    "data-share": {
+        "shares": [
+            {
+                "name": "cairn",
+                "permission": {
+                    "rw": ["cairn-server"]
+                }
+            }
+        ]
+    },
+    "port-config": {
+        "protocol-file": "port_conf/cairn-server.sc"
+    }
+}

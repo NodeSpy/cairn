@@ -1,0 +1,2 @@
+RESULT gen target=100000 files=93055 dirs=6666 entries=99721 logical_bytes=2811693444 max_dir_depth=6 avg_dir_depth=4.3 avg_fanout=15.0 secs_dirs=0.1 secs_files=1.5 secs_sync=6.0 entries_per_s=62317 threads=2
+RESULT gen size_p50=3930 p90=51651 p99=395141 p999=1574197 max=4947641

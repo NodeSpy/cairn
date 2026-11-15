@@ -1,0 +1,16 @@
+[package]
+name = "overlay-dedup"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "xp"
+path = "src/main.rs"
+
+[dependencies]
+libc = "0.2"
+
+[workspace]
+
+[profile.release]
+debug = 0

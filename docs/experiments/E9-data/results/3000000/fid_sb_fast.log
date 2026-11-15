@@ -1,0 +1,10 @@
+RESULT fid baseline_no_group create_secs=1.22 delete_secs=1.96 files=100000
+RESULT fid mode=sb marks=1 mark_secs=0.01
+MEM fid_marks_live count=1 dSlab=0MiB dSUnreclaim=0MiB dSReclaimable=0MiB dMemAvailable=0MiB dMemFree=0MiB | per_item: slab=0B sunreclaim=0B memfree=258048B
+MEM fid_marks_pinned_after_drop count=1 dSlab=0MiB dSUnreclaim=0MiB dSReclaimable=0MiB dMemAvailable=8MiB dMemFree=8MiB | per_item: slab=-73728B sunreclaim=-73728B memfree=-9310208B
+MEM fid_queue_at_end_of_workload count=0 dSlab=20MiB dSUnreclaim=0MiB dSReclaimable=19MiB dMemAvailable=-56MiB dMemFree=-136MiB | per_item: slab=21176320B sunreclaim=221184B memfree=143216640B
+  CACHE fid_queue_at_end_of_workload dentry dObjs=92862 dKiB=17411 per_item=17829504B
+  CACHE fid_queue_at_end_of_workload btrfs_inode dObjs=2193 dKiB=2021 per_item=2070192B
+  CACHE fid_queue_at_end_of_workload radix_tree_node dObjs=1078 dKiB=614 per_item=629552B
+  CACHE fid_queue_at_end_of_workload btrfs_extent_buffer dObjs=1139 dKiB=266 per_item=273360B
+RESULT fid run mode=sb reader=fast queue=unlimited files=100000 create_secs=2.81 delete_secs=2.21 (baseline 1.22/1.96) events=201297 create=100000 delete=100000 open=101000 close_write=100000 overflow=0 drain_after_workload_secs=0.00 events_per_s_overall=23172

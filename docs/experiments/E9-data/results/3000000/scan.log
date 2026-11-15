@@ -1,0 +1,20 @@
+RESULT scan j=1 cold files=2791684 dirs=200000 secs=218.09 entries_per_s=13718 logical_bytes=84164944621 allocated_blocks512=0
+RESULT scan j=1 warm files=2791684 dirs=200000 secs=352.06 entries_per_s=8498 logical_bytes=84164944621 allocated_blocks512=0
+RESULT scan j=1 warm2 files=2791684 dirs=200000 secs=33.74 entries_per_s=88669 logical_bytes=84164944621 allocated_blocks512=0
+RESULT scan j=2 cold files=2791684 dirs=200000 secs=69.12 entries_per_s=43285 logical_bytes=84164944621 allocated_blocks512=0
+RESULT scan j=2 warm files=2791684 dirs=200000 secs=23.72 entries_per_s=126110 logical_bytes=84164944621 allocated_blocks512=0
+RESULT scan j=2 warm2 files=2791684 dirs=200000 secs=22.73 entries_per_s=131611 logical_bytes=84164944621 allocated_blocks512=0
+MEM scan_cache_after_warm count=0 dSlab=2393MiB dSUnreclaim=98MiB dSReclaimable=2294MiB dMemAvailable=-148MiB dMemFree=-3429MiB | per_item: slab=2509660160B sunreclaim=103522304B memfree=3595726848B
+  CACHE scan_cache_after_warm btrfs_inode dObjs=2240651 dKiB=2065600 per_item=2115174544B
+  CACHE scan_cache_after_warm dentry dObjs=1121589 dKiB=210297 per_item=215345088B
+  CACHE scan_cache_after_warm lsm_file_cache dObjs=2225920 dKiB=69560 per_item=71229440B
+  CACHE scan_cache_after_warm radix_tree_node dObjs=47642 dKiB=27170 per_item=27822928B
+  CACHE scan_cache_after_warm btrfs_extent_buffer dObjs=64481 dKiB=15112 per_item=15475440B
+  CACHE scan_cache_after_warm kmalloc-192 dObjs=80283 dKiB=15053 per_item=15414336B
+MEM scan_cache_per_entry count=2991684 dSlab=2393MiB dSUnreclaim=98MiB dSReclaimable=2294MiB dMemAvailable=-148MiB dMemFree=-3429MiB | per_item: slab=839B sunreclaim=35B memfree=1202B
+  CACHE scan_cache_per_entry btrfs_inode dObjs=2240651 dKiB=2065600 per_item=707B
+  CACHE scan_cache_per_entry dentry dObjs=1121589 dKiB=210297 per_item=72B
+  CACHE scan_cache_per_entry lsm_file_cache dObjs=2225920 dKiB=69560 per_item=24B
+  CACHE scan_cache_per_entry radix_tree_node dObjs=47642 dKiB=27170 per_item=9B
+  CACHE scan_cache_per_entry btrfs_extent_buffer dObjs=64481 dKiB=15112 per_item=5B
+  CACHE scan_cache_per_entry kmalloc-192 dObjs=80283 dKiB=15053 per_item=5B

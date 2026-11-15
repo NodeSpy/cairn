@@ -1,0 +1,28 @@
+[package]
+name = "cairn-fuse"
+version.workspace = true
+edition.workspace = true
+description = "cairnd: the FUSE layer of the cairn client (passthrough, kernel inode table, applier)"
+
+[lib]
+name = "cairn_fuse"
+
+[[bin]]
+name = "cairnd"
+path = "src/main.rs"
+
+[dependencies]
+tracing-subscriber.workspace = true
+cairn-proto.workspace = true
+cairn-client.workspace = true
+anyhow.workspace = true
+libc.workspace = true
+parking_lot.workspace = true
+crossbeam-channel.workspace = true
+serde.workspace = true
+toml.workspace = true
+# Vendored fuser 0.18.0 + FUSE-over-io_uring transport (E14). Pure-Rust mount, no libfuse link.
+fuser = { path = "../../vendor/fuser", default-features = false }
+
+[dev-dependencies]
+tempfile.workspace = true

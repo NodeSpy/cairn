@@ -1,0 +1,16 @@
+RESULT scan j=1 cold files=93055 dirs=6666 secs=3.86 entries_per_s=25837 logical_bytes=2811693444 allocated_blocks512=0
+RESULT scan j=1 warm files=93055 dirs=6666 secs=0.32 entries_per_s=312680 logical_bytes=2811693444 allocated_blocks512=0
+RESULT scan j=1 warm2 files=93055 dirs=6666 secs=0.32 entries_per_s=309144 logical_bytes=2811693444 allocated_blocks512=0
+RESULT scan j=2 cold files=93055 dirs=6666 secs=1.60 entries_per_s=62442 logical_bytes=2811693444 allocated_blocks512=0
+RESULT scan j=2 warm files=93055 dirs=6666 secs=0.22 entries_per_s=452132 logical_bytes=2811693444 allocated_blocks512=0
+RESULT scan j=2 warm2 files=93055 dirs=6666 secs=0.19 entries_per_s=518451 logical_bytes=2811693444 allocated_blocks512=0
+MEM scan_cache_after_warm count=0 dSlab=108MiB dSUnreclaim=2MiB dSReclaimable=106MiB dMemAvailable=-46MiB dMemFree=-118MiB | per_item: slab=114208768B sunreclaim=2781184B memfree=124653568B
+  CACHE scan_cache_after_warm btrfs_inode dObjs=97563 dKiB=89940 per_item=92099472B
+  CACHE scan_cache_after_warm dentry dObjs=89712 dKiB=16821 per_item=17224704B
+  CACHE scan_cache_after_warm lsm_file_cache dObjs=79872 dKiB=2496 per_item=2555904B
+  CACHE scan_cache_after_warm kmalloc-192 dObjs=1386 dKiB=259 per_item=266112B
+MEM scan_cache_per_entry count=99721 dSlab=108MiB dSUnreclaim=2MiB dSReclaimable=106MiB dMemAvailable=-46MiB dMemFree=-118MiB | per_item: slab=1145B sunreclaim=28B memfree=1250B
+  CACHE scan_cache_per_entry btrfs_inode dObjs=97563 dKiB=89940 per_item=924B
+  CACHE scan_cache_per_entry dentry dObjs=89712 dKiB=16821 per_item=173B
+  CACHE scan_cache_per_entry lsm_file_cache dObjs=79872 dKiB=2496 per_item=26B
+  CACHE scan_cache_per_entry kmalloc-192 dObjs=1386 dKiB=259 per_item=3B

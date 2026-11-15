@@ -1,0 +1,17 @@
+=== E4 run 'C4-mixed-v1-widen': iters=4000 variant=v1(abort on interloper) widen_us=300 rest_us=300 readers=3 writers=2 holders=2
+  reader: reader hold=false reads=1801 bad=0 zero_bad=0 errs=0 first_bad=
+  reader: reader hold=false reads=1776 bad=0 zero_bad=0 errs=0 first_bad=
+  reader: reader hold=false reads=1769 bad=0 zero_bad=0 errs=0 first_bad=
+  holder: reader hold=true reads=1018 bad=0 zero_bad=0 errs=0 first_bad=
+  holder: reader hold=true reads=1075 bad=0 zero_bad=0 errs=0 first_bad=
+  writer: writer ops=4729 errs=0
+  writer: writer ops=4781 errs=0
+  elapsed 172.5s, 23 eviction cycles/s
+  outcome aborted-by-interloper: 237
+  outcome evicted: 2223
+  outcome evicted-but-blocks-nonzero(raced-by-writer-refill): 2
+  outcome refused(EAGAIN): 780
+  outcome restore-lease-failed:EAGAIN: 760
+  handler: events=27346 self_events=2976 fills=2374 punches=2374 other-process events on the victim inode inside the window=263 (of which handled BEFORE the punch=105)
+  RESULT: reader checks=7439 bad_reads=0 (zero_bytes_seen=0) ; final full-file verify bad files=0 ; mtime-not-restored files (valid only w/o writers)=13
+  VERDICT: PASS (no bad bytes)

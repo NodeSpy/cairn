@@ -1,0 +1,3 @@
+INFO nofile_before cur=1024 max=524288
+  CHUNK open upto=300000 secs=512.59
+  CHUNK open upto=600000 secs=489.49

@@ -1,0 +1,15 @@
+[package]
+name = "fuse-uring"
+version = "0.1.0"
+edition = "2021"
+description = "E13: minimal FUSE server, classic /dev/fuse vs io_uring transport, for latency comparison"
+
+[workspace]
+
+[dependencies]
+io-uring = "0.7"
+libc = "0.2"
+
+[profile.release]
+opt-level = 3
+debug = false

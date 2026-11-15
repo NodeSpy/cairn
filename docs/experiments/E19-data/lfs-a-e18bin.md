@@ -1,0 +1,27 @@
+| workload | unit | native | cairn | cairn-uring | cairn/native | cairn-uring/native |
+|---|---|---:|---:|---:|---:|---:|
+| wt_add_default | s | 6.018 | 8.504 | 9.259 | 1.41x | 1.54x |
+| wt_remove_default | s | 0.235 | 1.235 | 1.126 | 5.25x | 4.78x |
+| wt_add_w16 | s | 5.784 | 9.292 | 10.294 | 1.61x | 1.78x |
+| wt_remove_w16 | s | 0.262 | 1.281 | 1.183 | 4.90x | 4.52x |
+| status_warm | s | 0.072 | 0.086 | 0.079 | 1.20x | 1.11x |
+| statwalk_warm | s | 0.042 | 0.088 | 0.077 | 2.11x | 1.83x |
+| status_cold | s | 0.153 | 0.320 | 0.437 | 2.09x | 2.85x |
+| statwalk_cold | s | 0.453 | 0.208 | 0.202 | 0.46x | 0.45x |
+| small_create | s | 12.464 | 17.561 | 21.068 | 1.41x | 1.69x |
+| small_delete | s | 0.212 | 0.976 | 1.056 | 4.61x | 4.99x |
+| seqwrite_fsync_1G | MiB/s | 60.235 | 59.383 | 40.622 | 0.99x | 0.67x |
+| seqwrite_nosync_1G | MiB/s | 10666.7 | 727.3 | 735.6 | 0.07x | 0.07x |
+| seqread_cold_1G | MiB/s | 152.1 | 94.326 | 91.266 | 0.62x | 0.60x |
+| seqread_warm_1G | MiB/s | 13473.7 | 12190.5 | 12800.0 | 0.90x | 0.95x |
+| randread4k_warm | IOPS | 742633.8 | 652040.8 | 670126.0 | 0.88x | 0.90x |
+| randread4k_warm_lat_p50 | us | 1.012 | 1.096 | 1.096 | 1.08x | 1.08x |
+| randread4k_cold | IOPS | 1371.5 | 971.6 | 893.9 | 0.71x | 0.65x |
+| randread4k_mmap_warm | IOPS | 3456.4 | 2378.5 | 2125.2 | 0.69x | 0.61x |
+| cargo_build | s | 21.373 | 26.310 | 26.636 | 1.23x | 1.25x |
+| lat_stat_median | us | 4.100 | 43.400 | 44.300 | 10.59x | 10.80x |
+| lat_stat_p99 | us | 22.500 | 143.5 | 151.1 | 6.38x | 6.72x |
+| lat_open_cold_median | us | 5.500 | 150.9 | 165.1 | 27.44x | 30.02x |
+| lat_open_cold_p99 | us | 22.800 | 447.1 | 585.7 | 19.61x | 25.69x |
+| lat_open_warm_median | us | 2.400 | 110.5 | 110.9 | 46.04x | 46.21x |
+| lat_open_warm_p99 | us | 3.900 | 318.3 | 307.2 | 81.62x | 78.77x |

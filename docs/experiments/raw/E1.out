@@ -1,0 +1,64 @@
+=== E1.A basic fill through event fd, reader = cat-like process
+reader: bytes=1049353 fnv=3878cfd353cbff0e zeros=0 err=OK t0=1132938505964 t1=1132942937098
+expected fnv=3878cfd353cbff0e -> PASS bytes correct
+event [t+1132938.55ms pid=5372 mask=0x100000 range=Some((0, 65536))]
+event [t+1132940.44ms pid=5372 mask=0x100000 range=Some((65536, 65536))]
+event [t+1132940.66ms pid=5372 mask=0x100000 range=Some((131072, 65536))]
+event [t+1132940.84ms pid=5372 mask=0x100000 range=Some((196608, 65536))]
+event [t+1132940.98ms pid=5372 mask=0x100000 range=Some((262144, 65536))]
+event [t+1132941.17ms pid=5372 mask=0x100000 range=Some((327680, 65536))]
+event [t+1132941.35ms pid=5372 mask=0x100000 range=Some((393216, 65536))]
+event [t+1132941.56ms pid=5372 mask=0x100000 range=Some((458752, 65536))]
+event [t+1132941.69ms pid=5372 mask=0x100000 range=Some((524288, 65536))]
+event [t+1132941.82ms pid=5372 mask=0x100000 range=Some((589824, 65536))]
+event [t+1132941.96ms pid=5372 mask=0x100000 range=Some((655360, 65536))]
+event [t+1132942.17ms pid=5372 mask=0x100000 range=Some((720896, 65536))]
+event [t+1132942.31ms pid=5372 mask=0x100000 range=Some((786432, 65536))]
+event [t+1132942.47ms pid=5372 mask=0x100000 range=Some((851968, 65536))]
+event [t+1132942.60ms pid=5372 mask=0x100000 range=Some((917504, 65536))]
+event [t+1132942.74ms pid=5372 mask=0x100000 range=Some((983040, 65536))]
+event [t+1132942.87ms pid=5372 mask=0x100000 range=Some((1048576, 65536))]
+event [t+1132942.92ms pid=5372 mask=0x100000 range=Some((1048576, 69632))]
+blocks after fill=2056 (size 1049353)
+inotifywait during first read: ["OPEN a1", "ACCESS a1", "ACCESS a1", "ACCESS a1", "ACCESS a1", "ACCESS a1", "ACCESS a1", "ACCESS a1", "ACCESS a1", "ACCESS a1", "ACCESS a1", "ACCESS a1", "ACCESS a1", "ACCESS a1", "ACCESS a1", "ACCESS a1", "ACCESS a1", "ACCESS a1", "CLOSE_NOWRITE,CLOSE a1"]
+IN_MODIFY seen: false
+mtime after fill (no restore) = 1794547054 (was 1500000000)
+second read (still marked, already filled): bytes=1049353 fnv=3878cfd353cbff0e zeros=0 err=OK t0=1133750841982 t1=1133753542322 ; new events=18 ; inotify=["OPEN a1", "ACCESS a1", "ACCESS a1", "ACCESS a1", "ACCESS a1", "ACCESS a1", "ACCESS a1", "ACCESS a1", "ACCESS a1", "ACCESS a1", "ACCESS a1", "ACCESS a1", "ACCESS a1", "ACCESS a1", "ACCESS a1", "ACCESS a1", "ACCESS a1", "ACCESS a1", "CLOSE_NOWRITE,CLOSE a1"]
+real /usr/bin/cat of a2: 300000 bytes, equal=true
+control (plain write by another process) inotify: ["CREATE ctrl", "OPEN ctrl", "MODIFY ctrl", "CLOSE_WRITE,CLOSE ctrl"]
+=== E1.B futimens on the event fd (touch1)
+reader: bytes=100000 fnv=56e6b47b72137eca zeros=0 err=OK t0=1135368225375 t1=1135368975610
+inotify: ["OPEN touch1", "MODIFY touch1", "ACCESS touch1", "MODIFY touch1", "ACCESS touch1", "MODIFY touch1", "CLOSE_NOWRITE,CLOSE touch1"]
+mtime after fill+futimens = 1600000000 (restored target 1600000000)
+touchboth1 (futimens on event fd with BOTH atime+mtime): reader ok=true ; inotify: ["OPEN touchboth1", "ATTRIB touchboth1", "ACCESS touchboth1", "ATTRIB touchboth1", "ACCESS touchboth1", "ATTRIB touchboth1", "CLOSE_NOWRITE,CLOSE touchboth1"]
+control regular fd futimens(atime=OMIT, mtime) : ["MODIFY ctl2"]
+control regular fd futimens(atime, mtime both)  : ["ATTRIB ctl2"]
+control utimensat(path, atime=OMIT, mtime)      : ["MODIFY ctl2"]
+control fchmod                                  : ["ATTRIB ctl2"]
+control ftruncate(same size)                    : ["MODIFY ctl2"]
+=== E1.C FAN_DENY
+deny1: reader: bytes=0 fnv=cbf29ce484222325 zeros=0 err=EIO t0=1140603770840 t1=1140603854143 ; blocks=0
+deny1: cat stderr: cat: /cache/exp-hsm/e1/deny1: Input/output error
+denyplain1: reader: bytes=0 fnv=cbf29ce484222325 zeros=0 err=EPERM t0=1140605318569 t1=1140605396819 ; blocks=0
+denyplain1: cat stderr: cat: /cache/exp-hsm/e1/denyplain1: Operation not permitted
+=== E1.D mmap of placeholder
+mmap reader: t0=1140606844239 t1=1140608631283 t2=1140609812227 fnv=881b8a5b0106e8bb zeros=0 byte0=8 byte_page5=57
+event [t+0.04ms pid=5390 mask=0x100000 range=Some((0, 1048576))] => DURING mmap()
+bytes correct: true
+partial-fill (handler fills only first 4 KiB): t0=1140613703158 t1=1140613848297 t2=1140615331135 fnv=ebacfd5c4e9b389d zeros=1044480 byte0=8 byte_page5=0
+events for part1 = 1 (expect 1, no fault-time events)
+mmap off=8192 len=16384: t0=1140616408809 t1=1140618295280 t2=1140618315180 fnv=be49437f7ea82bbf zeros=0 byte0=128 byte_page5=255
+event [t+1140616.48ms pid=5392 mask=0x100000 range=Some((8192, 16384))]
+pread off=12345 len=100: n=100 err=OK zeros=0 t0=1140618777849 t1=1140620593499
+event [t+1140618.80ms pid=5393 mask=0x100000 range=Some((12288, 4096))]
+pread 1MiB: n=1048576 err=OK zeros=0 t0=1140621021102 t1=1140623709179
+event [t+1140621.04ms pid=5394 mask=0x100000 range=Some((0, 1048576))]
+=== E1.E O_TRUNC open of placeholder
+otrunc helper: open0=1140624192451 open1=1140624207719 write0=1140924421419 write1=1140924593234 size_after_open=0 wr=1
+event [t+300.33ms pid=5395 mask=0x100000 range=Some((0, 4096))] => at write
+events total for tr1 = 1
+final size=1 blocks=8
+truncate(2) path -> 0: t0=1140925117036 t1=1140926911337 err=0 ; events=1 [Some((0, 0))]
+   size=0 blocks=0
+truncate(2) path -> 524288: t0=1140927298301 t1=1140929156574 err=0 ; events=1 [Some((524288, 0))]
+   size=524288 blocks=1024

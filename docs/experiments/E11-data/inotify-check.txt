@@ -1,0 +1,27 @@
+== mode=pt
+cycles ok: 40
+cycles failed: 0
+MODIFY       78
+ATTRIB       40
+MOVED_FROM   40
+MOVED_TO     40
+DELETE       40
+CREATE       40
+CLOSE_WRITE  40
+daemon exited cleanly
+== mode=nopt
+cycles ok: 40
+cycles failed: 0
+MODIFY       77
+ATTRIB       40
+MOVED_FROM   40
+MOVED_TO     40
+DELETE       40
+CREATE       40
+CLOSE_WRITE  40
+daemon exited cleanly
+fuse-pt: init, passthrough=true writeback=false
+fuse-pt: mounted /cache/backing -> /mnt/lfs passthrough=true writeback=false threads=4 ttl=3600s
+[remote-sim 1794595174244] cycle 1 ok in 1.508409ms
+[remote-sim 1794595174346] cycle 2 ok in 1.810378ms
+7.2.11-arch1-1

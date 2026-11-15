@@ -1,0 +1,16 @@
+RESULT marks mode=inode limited=true marks_added=35997 stopped=errno errno=28 mark_syscall_secs=1.44 wall_secs=2.47 marks_per_s=24952 max_user_marks=35997
+MEM marks_live_before_drop count=35997 dSlab=43MiB dSUnreclaim=4MiB dSReclaimable=38MiB dMemAvailable=-43MiB dMemFree=-79MiB | per_item: slab=1271B sunreclaim=145B memfree=2309B
+  CACHE marks_live_before_drop btrfs_inode dObjs=36465 dKiB=33616 per_item=956B
+  CACHE marks_live_before_drop dentry dObjs=28140 dKiB=5276 per_item=150B
+  CACHE marks_live_before_drop sigqueue dObjs=35904 dKiB=2805 per_item=80B
+  CACHE marks_live_before_drop fsnotify_inode_mark_connector dObjs=35904 dKiB=1402 per_item=40B
+  CACHE marks_live_before_drop lsm_file_cache dObjs=17920 dKiB=560 per_item=16B
+  CACHE marks_live_before_drop kmalloc-512 dObjs=672 dKiB=336 per_item=10B
+MEM marks_pinned_after_drop_caches count=35997 dSlab=38MiB dSUnreclaim=4MiB dSReclaimable=33MiB dMemAvailable=-52MiB dMemFree=-68MiB | per_item: slab=1121B sunreclaim=145B memfree=1982B
+  CACHE marks_pinned_after_drop_caches btrfs_inode dObjs=36465 dKiB=33616 per_item=956B
+  CACHE marks_pinned_after_drop_caches sigqueue dObjs=35904 dKiB=2805 per_item=80B
+  CACHE marks_pinned_after_drop_caches fsnotify_inode_mark_connector dObjs=35904 dKiB=1402 per_item=40B
+  CACHE marks_pinned_after_drop_caches lsm_file_cache dObjs=17920 dKiB=560 per_item=16B
+  CACHE marks_pinned_after_drop_caches kmalloc-512 dObjs=704 dKiB=352 per_item=10B
+MEM marks_after_close_and_drop count=35997 dSlab=1MiB dSUnreclaim=0MiB dSReclaimable=1MiB dMemAvailable=-1MiB dMemFree=0MiB | per_item: slab=53B sunreclaim=9B memfree=29B
+  CACHE marks_after_close_and_drop btrfs_inode dObjs=1751 dKiB=1614 per_item=46B

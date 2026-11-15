@@ -1,0 +1,4 @@
+# seq 11 sigusr1
+GETATTR	14	10.4	8.2	65.5	0.1
+STATFS	1	14.3	16.4	16.4	0.0
+TOTAL	15

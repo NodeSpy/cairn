@@ -1,0 +1,47 @@
+== uring fuse: setup
+
+thread 'main' (140384) panicked at src/bin/lat.rs:15:99:
+index out of bounds: the len is 4 but the index is 4
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+thread 'main' (140425) panicked at src/bin/lat.rs:15:99:
+index out of bounds: the len is 4 but the index is 4
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+thread 'main' (140466) panicked at src/bin/lat.rs:15:99:
+index out of bounds: the len is 4 but the index is 4
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+thread 'main' (140506) panicked at src/bin/lat.rs:15:99:
+index out of bounds: the len is 4 but the index is 4
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+thread 'main' (140546) panicked at src/bin/lat.rs:15:99:
+index out of bounds: the len is 4 but the index is 4
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+thread 'main' (140585) panicked at src/bin/lat.rs:15:99:
+index out of bounds: the len is 4 but the index is 4
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+thread 'main' (140625) panicked at src/bin/lat.rs:15:99:
+index out of bounds: the len is 4 but the index is 4
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+thread 'main' (140664) panicked at src/bin/lat.rs:15:99:
+index out of bounds: the len is 4 but the index is 4
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+thread 'main' (140703) panicked at src/bin/lat.rs:15:99:
+index out of bounds: the len is 4 but the index is 4
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+== uring done

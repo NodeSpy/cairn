@@ -1,0 +1,35 @@
+=== E2.A gate with 1000 ms artificial release delay
+wronly       blocked 1000.292 ms err=OK ; breaks=1 ; signal after 0.026 ms, ssi_fd=4 (lease fd=4) ; lease now=none
+rdwr         blocked 1000.373 ms err=OK ; breaks=1 ; signal after 0.061 ms, ssi_fd=4 (lease fd=4) ; lease now=none
+append       blocked 1000.205 ms err=OK ; breaks=1 ; signal after 0.021 ms, ssi_fd=4 (lease fd=4) ; lease now=none
+creat_trunc  blocked 1000.478 ms err=OK ; breaks=1 ; signal after 0.060 ms, ssi_fd=4 (lease fd=4) ; lease now=none
+truncp       blocked 1000.231 ms err=OK ; breaks=1 ; signal after 0.032 ms, ssi_fd=4 (lease fd=4) ; lease now=none
+nonblock     blocked    0.013 ms err=EAGAIN ; breaks=1 ; signal after 0.043 ms, ssi_fd=4 (lease fd=4) ; lease now=none
+--- O_NONBLOCK follow-up: re-open after lease released
+nonblock open after release: t0=1309906539735 t1=1309906547918 err=OK
+=== E2.B ops expected NOT to break the lease (delay irrelevant)
+rdonly       took    0.008 ms err=OK ; breaks=0 ; lease now=RDLCK
+rename       took    0.024 ms err=OK ; breaks=0 ; lease now=RDLCK
+unlink       took    0.056 ms err=OK ; breaks=0 ; lease now=RDLCK
+chmod        took    0.015 ms err=OK ; breaks=0 ; lease now=RDLCK
+utimes       took    0.013 ms err=OK ; breaks=0 ; lease now=RDLCK
+link         took    0.025 ms err=OK ; breaks=0 ; lease now=RDLCK
+sed -i: status=exit status: 0 took 1.0 ms ; breaks=0 ; lease on old inode=RDLCK ; path inode changed=true ; new content="HELLO world" ; old inode (via lease fd) size=11 nlink=0
+rename(tmp, leased path): took 0.029 ms ; breaks=0 ; lease=RDLCK
+sh: echo >> f (O_APPEND): took 1001.8 ms ; breaks=1 ; lease=none
+sh: echo > f (O_TRUNC): took 1001.8 ms ; breaks=1 ; lease=none
+cp tmpfile f (O_TRUNC): took 1002.3 ms ; breaks=1 ; lease=none
+truncate: cannot open '/cache/exp-hsm/e2/f' for writing: Resource temporarily unavailable
+truncate -s 0 f: took 2.0 ms ; breaks=1 ; lease=none
+=== E2.C multiple leased files: ssi_fd identification and concurrent breaks
+  leases after setup: ["RDLCK", "RDLCK", "RDLCK"]
+opened m1 (fd 5) for write: ssi_fd=[5], correct=true
+  m1 helper out: t0=1316323166004 t1=1316523335969 err=OK
+  leases before concurrent test: ["RDLCK", "none", "RDLCK"]
+  helper outputs: m0: t0=1316524086967 t1=1316724274150 err=OK | m2: t0=1316524124922 t1=1316924467432 err=OK
+  log: [(0, 4), (200101036, 6)]
+concurrent writers on m0,m2: ssi_fds=[4, 6] want=[4, 6] ok=true
+=== E2.D gate latency distribution (release delay 0)
+n=300 leased open(O_WRONLY) us: p50=46.1 p90=81.7 p99=135.8 max=194.0
+n=300 unleased open(O_WRONLY) us: p50=6.2 p90=20.0 p99=39.7 max=114.7
+signal-arrival-at-daemon latency (from before open() in writer) us: p50=20.3 p99=85.2 (signals=300)

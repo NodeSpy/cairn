@@ -1,0 +1,13 @@
+# Standalone (not a workspace member): `cargo run --release -- <addr> <creds-dir> <root>`
+[package]
+name = "cairn-nas-smoke"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+cairn-proto = { path = "../../../crates/cairn-proto" }
+cairn-server = { path = "../../../crates/cairn-server" }
+tokio = { version = "1", features = ["full"] }
+
+[workspace]

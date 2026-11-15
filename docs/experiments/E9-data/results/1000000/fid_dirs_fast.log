@@ -1,0 +1,20 @@
+RESULT fid baseline_no_group create_secs=2.13 delete_secs=3.00 files=100000
+RESULT fid mode=dirs marks=66666 mark_secs=16.56
+MEM fid_marks_live count=66666 dSlab=79MiB dSUnreclaim=9MiB dSReclaimable=69MiB dMemAvailable=-148MiB dMemFree=-278MiB | per_item: slab=1252B sunreclaim=152B memfree=4378B
+  CACHE fid_marks_live btrfs_inode dObjs=64566 dKiB=59521 per_item=914B
+  CACHE fid_marks_live dentry dObjs=56994 dKiB=10686 per_item=164B
+  CACHE fid_marks_live sigqueue dObjs=65025 dKiB=5080 per_item=78B
+  CACHE fid_marks_live fsnotify_inode_mark_connector dObjs=64872 dKiB=2534 per_item=39B
+  CACHE fid_marks_live lsm_file_cache dObjs=42624 dKiB=1332 per_item=20B
+  CACHE fid_marks_live btrfs_extent_buffer dObjs=3485 dKiB=816 per_item=13B
+MEM fid_marks_pinned_after_drop count=66666 dSlab=68MiB dSUnreclaim=8MiB dSReclaimable=59MiB dMemAvailable=-85MiB dMemFree=-115MiB | per_item: slab=1071B sunreclaim=137B memfree=1811B
+  CACHE fid_marks_pinned_after_drop btrfs_inode dObjs=64566 dKiB=59521 per_item=914B
+  CACHE fid_marks_pinned_after_drop sigqueue dObjs=65025 dKiB=5080 per_item=78B
+  CACHE fid_marks_pinned_after_drop fsnotify_inode_mark_connector dObjs=64872 dKiB=2534 per_item=39B
+  CACHE fid_marks_pinned_after_drop lsm_file_cache dObjs=42624 dKiB=1332 per_item=20B
+MEM fid_queue_at_end_of_workload count=0 dSlab=7MiB dSUnreclaim=0MiB dSReclaimable=7MiB dMemAvailable=15MiB dMemFree=25MiB | per_item: slab=7614464B sunreclaim=-659456B memfree=-26714112B
+  CACHE fid_queue_at_end_of_workload dentry dObjs=36372 dKiB=6819 per_item=6983424B
+  CACHE fid_queue_at_end_of_workload btrfs_extent_buffer dObjs=-3808 dKiB=-892 per_item=-913920B
+  CACHE fid_queue_at_end_of_workload btrfs_inode dObjs=612 dKiB=564 per_item=577728B
+  CACHE fid_queue_at_end_of_workload radix_tree_node dObjs=868 dKiB=495 per_item=506912B
+RESULT fid run mode=dirs reader=fast queue=unlimited files=100000 create_secs=3.83 delete_secs=2.98 (baseline 2.13/3.00) events=201357 create=100000 delete=100000 open=101000 close_write=100000 overflow=0 drain_after_workload_secs=0.00 events_per_s_overall=21325

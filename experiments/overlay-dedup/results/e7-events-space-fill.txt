@@ -1,0 +1,156 @@
+##### clone with FAN_PRE_ACCESS marks present (hsmd --fill none = log only)
+== dst-marked
+- FICLONE:
+FICLONE errno=0 us=68560 dst_before[size=65536 bytes_alloc=65536 mtime=1794547084.674752697 ctime=1794547084.674752697] dst_after[size=1048576 bytes_alloc=1048576 mtime=1794547084.766498988 ctime=1794547084.766498988] dst:mtime_changed=true ctime_changed=true size_changed=true src:mtime_changed=false ctime_changed=false size_changed=false
+  rc=0
+- FICLONERANGE 4096@0:
+FICLONERANGE src_off=0 len=4096 dst_off=0 errno=0 us=121 dst_size 1048576->1048576 dst:mtime_changed=true ctime_changed=true size_changed=false src:mtime_changed=false ctime_changed=false size_changed=false
+  rc=0
+- dedupe (ro dst):
+FIDEDUPERANGE dstmode=ro errno=0 status=SAME bytes_deduped=1048576 us=48421 dst:mtime_changed=false ctime_changed=false size_changed=false src:mtime_changed=false ctime_changed=false size_changed=fals
+  rc=0
+- events seen by hsmd (excluding the file opens that this tool does not do):
+    EVT pid=9519 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/dst range=0+0 act=allow-nofill us=26
+    EVT pid=9521 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/dst range=0+4096 act=allow-nofill us=31
+    EVT pid=9526 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/dst range=0+1048576 act=allow-nofill us=25
+== src-marked
+- FICLONE:
+FICLONE errno=0 us=4309 dst_before[size=65536 bytes_alloc=65536 mtime=1794547085.066492949 ctime=1794547085.066492949] dst_after[size=1048576 bytes_alloc=1048576 mtime=1794547085.094492385 ctime=1794547085.094492385] dst:mtime_changed=true ctime_changed=true size_changed=true src:mtime_changed=false ctime_changed=false size_changed=false
+  rc=0
+- FICLONERANGE 4096@0:
+FICLONERANGE src_off=0 len=4096 dst_off=0 errno=0 us=103 dst_size 1048576->1048576 dst:mtime_changed=true ctime_changed=true size_changed=false src:mtime_changed=false ctime_changed=false size_changed=false
+  rc=0
+- dedupe (ro dst):
+FIDEDUPERANGE dstmode=ro errno=0 status=SAME bytes_deduped=1048576 us=306 dst:mtime_changed=false ctime_changed=false size_changed=false src:mtime_changed=false ctime_changed=false size_changed=false 
+  rc=0
+- events seen by hsmd (excluding the file opens that this tool does not do):
+    EVT pid=9539 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=0+0 act=allow-nofill us=26
+    EVT pid=9541 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=0+4096 act=allow-nofill us=24
+    EVT pid=9546 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=0+1048576 act=allow-nofill us=25
+    EVT pid=9546 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=0+1048576 act=allow-nofill us=12
+== both-marked
+- FICLONE:
+FICLONE errno=0 us=133 dst_before[size=65536 bytes_alloc=65536 mtime=1794547085.348854758 ctime=1794547085.348854758] dst_after[size=1048576 bytes_alloc=1048576 mtime=1794547085.371486806 ctime=1794547085.371486806] dst:mtime_changed=true ctime_changed=true size_changed=true src:mtime_changed=false ctime_changed=false size_changed=false
+  rc=0
+- FICLONERANGE 4096@0:
+FICLONERANGE src_off=0 len=4096 dst_off=0 errno=0 us=115 dst_size 1048576->1048576 dst:mtime_changed=true ctime_changed=true size_changed=false src:mtime_changed=false ctime_changed=false size_changed=false
+  rc=0
+- dedupe (ro dst):
+FIDEDUPERANGE dstmode=ro errno=0 status=SAME bytes_deduped=1048576 us=57637 dst:mtime_changed=false ctime_changed=false size_changed=false src:mtime_changed=false ctime_changed=false size_changed=fals
+  rc=0
+- events seen by hsmd (excluding the file opens that this tool does not do):
+    EVT pid=9559 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=0+0 act=allow-nofill us=19
+    EVT pid=9559 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/dst range=0+0 act=allow-nofill us=12
+    EVT pid=9561 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=0+4096 act=allow-nofill us=20
+    EVT pid=9561 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/dst range=0+4096 act=allow-nofill us=12
+    EVT pid=9566 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=0+1048576 act=allow-nofill us=32
+    EVT pid=9566 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=0+1048576 act=allow-nofill us=14
+    EVT pid=9566 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/dst range=0+1048576 act=allow-nofill us=18
+== dir-marked(dst dir, ON_CHILD)
+- FICLONE:
+FICLONE errno=0 us=284 dst_before[size=65536 bytes_alloc=65536 mtime=1794547085.680503894 ctime=1794547085.680503894] dst_after[size=1048576 bytes_alloc=1048576 mtime=1794547085.703480117 ctime=1794547085.703480117] dst:mtime_changed=true ctime_changed=true size_changed=true src:mtime_changed=false ctime_changed=false size_changed=false
+  rc=0
+- FICLONERANGE 4096@0:
+FICLONERANGE src_off=0 len=4096 dst_off=0 errno=0 us=173 dst_size 1048576->1048576 dst:mtime_changed=true ctime_changed=true size_changed=false src:mtime_changed=false ctime_changed=false size_changed=false
+  rc=0
+- dedupe (ro dst):
+FIDEDUPERANGE dstmode=ro errno=0 status=SAME bytes_deduped=1048576 us=60718 dst:mtime_changed=false ctime_changed=false size_changed=false src:mtime_changed=false ctime_changed=false size_changed=fals
+  rc=0
+- events seen by hsmd (excluding the file opens that this tool does not do):
+    EVT pid=9579 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=0+0 act=allow-nofill us=29
+    EVT pid=9579 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/dst range=0+0 act=allow-nofill us=16
+    EVT pid=9581 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=0+4096 act=allow-nofill us=25
+    EVT pid=9581 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/dst range=0+4096 act=allow-nofill us=14
+    EVT pid=9586 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=0+1048576 act=allow-nofill us=26
+    EVT pid=9586 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=0+1048576 act=allow-nofill us=21
+    EVT pid=9586 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/dst range=0+1048576 act=allow-nofill us=18
+== placeholder dst (sparse, size 1 MiB, inode-marked, fill none) cloned from real src
+FICLONE errno=0 us=95 dst_before[size=1048576 bytes_alloc=0 mtime=1794547086.017473791 ctime=1794547086.017473791] dst_after[size=1048576 bytes_alloc=1048576 mtime=1794547086.040473327 ctime=1794547086.040473327] dst:mtime_changed=true ctime_changed=true size_changed=false src:mtime_changed=false ctime_changed=false size_changed=false
+  content identical after clone
+    EVT pid=9600 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=0+0 act=allow-nofill us=19
+
+##### space reclaimed
+- 3 x 256 MiB identical (separately written): fs used before=10977280 after write=817922048 (+769 MiB)
+  compsize: Processed 3 files, 6 regular extents (6 refs), 0 inline.
+  compsize: Type       Perc     Disk Usage   Uncompressed Referenced  
+  compsize: TOTAL      100%     805306368    805306368    805306368   
+  compsize: none       100%     805306368    805306368    805306368   
+  fi du:      Total   Exclusive  Set shared  Filename
+  fi du:  768.00MiB   768.00MiB       0.00B  /cache/exp-ovl/e7/sp
+dedupefile size=268435456 chunk=16777216 deduped=268435456 calls=16 differs=0 err=0 secs=0.033 MiB_per_s=7756.8
+dedupefile size=268435456 chunk=16777216 deduped=268435456 calls=16 differs=0 err=0 secs=0.032 MiB_per_s=7966.9
+- after dedupe b,c against a: fs used=280002560 (reclaimed 513 MiB)
+  compsize: Processed 3 files, 2 regular extents (34 refs), 0 inline.
+  compsize: Type       Perc     Disk Usage   Uncompressed Referenced  
+  compsize: TOTAL      100%     268435456    268435456    805306368   
+  compsize: none       100%     268435456    268435456    805306368   
+  fi du:      Total   Exclusive  Set shared  Filename
+  fi du:  768.00MiB       0.00B   256.00MiB  /cache/exp-ovl/e7/sp
+Filesystem type is: 9123683e
+File size of a is 268435456 (65536 blocks of 4096 bytes)
+ ext:     logical_offset:        physical_offset: length:   expected: flags:
+   0:        0..   32767:     335104..    367871:  32768:             shared
+   1:    32768..   65535:     433408..    466175:  32768:     367872: last,shared,eof
+a: 2 extents found
+   0:        0..   32767:     335104..    367871:  32768:             shared
+   1:    32768..   65535:     433408..    466175:  32768:     367872: last,shared,eof
+- partial overlap: B = first half of A + new random half
+dedupefile size=268435456 chunk=16777216 deduped=134217728 calls=9 differs=1 err=0 secs=0.019 MiB_per_s=6813.2
+  (dedupefile stops at first differing chunk), fs used before=683474944 after=549027840
+  now dedupe only first 128 MiB range via chunks:
+status=SAME bytes_deduped=16777216 status=SAME bytes_deduped=16777216 status=SAME bytes_deduped=16777216 status=SAME bytes_deduped=16777216 status=SAME bytes_deduped=16777216 status=SAME bytes_deduped=16777216 status=SAME bytes_deduped=16777216 status=SAME bytes_deduped=16777216 
+  fs used before=548995072 after=414515200 (reclaimed 128 MiB, expect ~128)
+  compsize: Processed 3 files, 3 regular extents (12 refs), 0 inline.
+  compsize: Type       Perc     Disk Usage   Uncompressed Referenced  
+  compsize: TOTAL      100%     402653184    402653184    671088640   
+  compsize: none       100%     402653184    402653184    671088640   
+- sync fs used reading: 420544512
+
+##### fill path: FICLONE from CAS blob into placeholder inside the pre-content handler
+== fill=pwrite evflags=rdwr writevia=eventfd workers=4
+  before: blocks=0 mtime=2020-01-02 03:04:05.123456789 +0000 ctime=2026-11-13 05:19:12.617099112 +0000
+sum bytes=1048576 nonzero=1044490 fnv=d075b59220b85443
+  expected sum bytes=1048576 nonzero=1044490 fnv=d075b59220b85443
+  after:  blocks=2048 mtime=2026-11-13 05:19:12.621099027 +0000 ctime=2026-11-13 05:19:12.621099027 +0000
+    EVT pid=9727 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/fill/ph/one range=0+1048576 act=fill-pwrite us=473
+    EVT pid=9727 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/fill/ph/one range=1048576+1048576 act=skip-already-filled us=15
+== fill=clone evflags=rdwr writevia=eventfd workers=4
+  before: blocks=0 mtime=2020-01-02 03:04:05.123456789 +0000 ctime=2026-11-13 05:19:12.942092276 +0000
+sum bytes=1048576 nonzero=1044490 fnv=d075b59220b85443
+  inotify events:
+    IN /cache/exp-ovl/e7/fill/ph one OPEN
+    IN /cache/exp-ovl/e7/fill/ph one ACCESS
+    IN /cache/exp-ovl/e7/fill/ph one CLOSE_NOWRITE
+  expected sum bytes=1048576 nonzero=1044490 fnv=d075b59220b85443
+  after:  blocks=2048 mtime=2026-11-13 05:19:13.051089977 +0000 ctime=2026-11-13 05:19:13.051089977 +0000
+    EVT pid=9749 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/fill/ph/one range=0+1048576 act=fill-clone us=102999
+    EVT pid=9749 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/fill/ph/one range=1048576+1048576 act=skip-already-filled us=25
+== fill=pwrite evflags=rdonly writevia=path workers=4
+  before: blocks=0 mtime=2020-01-02 03:04:05.123456789 +0000 ctime=2026-11-13 05:19:15.270043232 +0000
+sum bytes=1048576 nonzero=1044490 fnv=d075b59220b85443
+  expected sum bytes=1048576 nonzero=1044490 fnv=d075b59220b85443
+  after:  blocks=2048 mtime=2026-11-13 05:19:15.275043127 +0000 ctime=2026-11-13 05:19:15.275043127 +0000
+    SELFEVT mask=0x100000 path=/cache/exp-ovl/e7/fill/ph/one (auto-allowed; nested event raised by our own fill)
+    EVT pid=9771 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/fill/ph/one range=0+1048576 act=fill-pwrite us=577
+    EVT pid=9771 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/fill/ph/one range=1048576+1048576 act=skip-already-filled us=15
+== fill=clone evflags=rdonly writevia=path workers=4
+  before: blocks=0 mtime=2020-01-02 03:04:05.123456789 +0000 ctime=2026-11-13 05:19:15.596036358 +0000
+sum bytes=1048576 nonzero=1044490 fnv=d075b59220b85443
+  expected sum bytes=1048576 nonzero=1044490 fnv=d075b59220b85443
+  after:  blocks=2048 mtime=2026-11-13 05:19:15.601036253 +0000 ctime=2026-11-13 05:19:15.601036253 +0000
+    SELFEVT mask=0x100000 path=/cache/exp-ovl/e7/fill/ph/one (auto-allowed; nested event raised by our own fill)
+    EVT pid=9791 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/fill/ph/one range=0+1048576 act=fill-clone us=104
+    EVT pid=9791 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/fill/ph/one range=1048576+1048576 act=skip-already-filled us=43
+== fill=clone evflags=rdonly writevia=path workers=1
+  before: blocks=0 mtime=2020-01-02 03:04:05.123456789 +0000 ctime=2026-11-13 05:19:15.927029381 +0000
+  TIMEOUT (deadlock): reader hung > 10 s
+  expected sum bytes=1048576 nonzero=1044490 fnv=d075b59220b85443
+  after:  blocks=0 mtime=2020-01-02 03:04:05.123456789 +0000 ctime=2026-11-13 05:19:15.927029381 +0000
+== fill=pwrite evflags=rdonly writevia=path workers=1
+  before: blocks=0 mtime=2020-01-02 03:04:05.123456789 +0000 ctime=2026-11-13 05:19:26.254429644 +0000
+  TIMEOUT (deadlock): reader hung > 10 s
+  expected sum bytes=1048576 nonzero=1044490 fnv=d075b59220b85443
+  after:  blocks=0 mtime=2020-01-02 03:04:05.123456789 +0000 ctime=2026-11-13 05:19:26.254429644 +0000
+== does the clone share extents with the CAS blob afterwards?
+   0:        0..     255:      80303..     80558:    256:             last,eof
+

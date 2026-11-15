@@ -1,0 +1,354 @@
+    READY marks=4 mark_ms=0
+=== mark=inode op=read fill=pwrite evflags=rdonly
+sum bytes=20000 nonzero=19917 fnv=8080a71ab5035819
+  expected: sum bytes=20000 nonzero=19917 fnv=8080a71ab5035819
+  lower/small.txt alloc blocks after: 40  lower/true blocks: 0
+  -- events:
+    SELFEVT mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt (auto-allowed; nested event raised by our own fill)
+    EVT pid=5501 comm=xp mask=0x100000 path=/small.txt range=0+1048576 act=fill-pwrite us=169
+    EVT pid=5501 comm=xp mask=0x100000 path=/small.txt range=16384+1052672 act=skip-already-filled us=16
+    READY marks=4 mark_ms=0
+=== mark=inode op=write fill=pwrite evflags=rdonly
+write n=7 err=0
+  differing bytes merged vs store: 7 (7 expected if copy-up got real data)
+  upper copy differing bytes: 7
+  lower/small.txt alloc blocks after: 40  lower/true blocks: 0
+  -- events:
+    SELFEVT mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt (auto-allowed; nested event raised by our own fill)
+    EVT pid=5541 comm=xp mask=0x100000 path=/small.txt range=0+20480 act=fill-pwrite us=125
+    READY marks=4 mark_ms=0
+=== mark=inode op=mmap fill=pwrite evflags=rdonly
+mmapread len=20000 nonzero=0 fnv=0ed9e7ee21f20da5
+mmapread then pread n=16 first16=[46, dd, b6, 62, 22, a9, 77, 88, d8, 24, 55, 3b, 51, ac, 81, 50]
+  lower/small.txt alloc blocks after: 40  lower/true blocks: 0
+  -- events:
+    EVT pid=5586 comm=xp mask=0x100000 path=/small.txt range=0+4096 act=fill-pwrite us=118
+    SELFEVT mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt (auto-allowed; nested event raised by our own fill)
+    READY marks=4 mark_ms=0
+=== mark=inode op=stat fill=pwrite evflags=rdonly
+  stat /cache/exp-ovl/e5/merged/small.txt size=20000 blocks=0
+  stat /cache/exp-ovl/e5/merged/true size=43320 blocks=0
+  ls ok rc=0
+  lower/small.txt alloc blocks after: 0  lower/true blocks: 0
+  -- events:
+    READY marks=4 mark_ms=0
+=== mark=inode op=exec fill=pwrite evflags=rdonly
+  exec rc=0
+  lower/small.txt alloc blocks after: 0  lower/true blocks: 88
+  -- events:
+    SELFEVT mask=0x100000 path=/cache/exp-ovl/e5/lower/true (auto-allowed; nested event raised by our own fill)
+    EVT pid=5666 comm=timeout mask=0x100000 path=/true range=0+4096 act=fill-pwrite us=142
+    EVT pid=5666 comm=timeout mask=0x100000 path=/true range=0+4096 act=skip-already-filled us=17
+    EVT pid=5666 comm=timeout mask=0x100000 path=/true range=0+4096 act=skip-already-filled us=23
+    READY marks=4 mark_ms=0
+=== mark=inode op=direct-read fill=pwrite evflags=rdonly
+sum bytes=20000 nonzero=19930 fnv=e1091681da8e6a78
+  expected: sum bytes=20000 nonzero=19930 fnv=e1091681da8e6a78
+  lower/small.txt alloc blocks after: 40  lower/true blocks: 0
+  -- events:
+    SELFEVT mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt (auto-allowed; nested event raised by our own fill)
+    EVT pid=5705 comm=xp mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt range=0+1048576 act=fill-pwrite us=164
+    EVT pid=5705 comm=xp mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt range=16384+1052672 act=skip-already-filled us=16
+    READY marks=4 mark_ms=0
+=== mark=inode op=direct-mmap fill=pwrite evflags=rdonly
+mmapread len=20000 nonzero=19934 fnv=fe1e7530db927d59
+mmapread then pread n=16 first16=[f9, 7b, c3, fd, b8, e5, 29, 25, ac, b0, 02, e0, 2a, f9, f5, d2]
+  lower/small.txt alloc blocks after: 40  lower/true blocks: 0
+  -- events:
+    EVT pid=5745 comm=xp mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt range=0+20480 act=fill-pwrite us=117
+    SELFEVT mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt (auto-allowed; nested event raised by our own fill)
+    EVT pid=5745 comm=xp mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt range=0+4096 act=skip-already-filled us=21
+    READY marks=4 mark_ms=0
+=== mark=inode op=direct-exec fill=pwrite evflags=rdonly
+  exec rc=0
+  lower/small.txt alloc blocks after: 0  lower/true blocks: 88
+  -- events:
+    EVT pid=5784 comm=timeout mask=0x100000 path=/cache/exp-ovl/e5/lower/true range=0+4096 act=fill-pwrite us=97
+    EVT pid=5784 comm=timeout mask=0x100000 path=/cache/exp-ovl/e5/lower/true range=0+4096 act=skip-already-filled us=12
+    EVT pid=5784 comm=timeout mask=0x100000 path=/cache/exp-ovl/e5/lower/true range=0+4096 act=skip-already-filled us=11
+    SELFEVT mask=0x100000 path=/cache/exp-ovl/e5/lower/true (auto-allowed; nested event raised by our own fill)
+    EVT pid=5784 comm=true mask=0x100000 path=/cache/exp-ovl/e5/lower/true range=0+45056 act=skip-already-filled us=13
+    EVT pid=5784 comm=true mask=0x100000 path=/cache/exp-ovl/e5/lower/true range=8192+20480 act=skip-already-filled us=11
+    EVT pid=5784 comm=true mask=0x100000 path=/cache/exp-ovl/e5/lower/true range=28672+8192 act=skip-already-filled us=11
+    EVT pid=5784 comm=true mask=0x100000 path=/cache/exp-ovl/e5/lower/true range=36864+8192 act=skip-already-filled us=11
+    READY marks=2 mark_ms=0
+=== mark=dir op=read fill=pwrite evflags=rdonly
+sum bytes=20000 nonzero=19922 fnv=06e8084b31824088
+  expected: sum bytes=20000 nonzero=19922 fnv=06e8084b31824088
+  lower/small.txt alloc blocks after: 40  lower/true blocks: 0
+  -- events:
+    SELFEVT mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt (auto-allowed; nested event raised by our own fill)
+    EVT pid=5823 comm=xp mask=0x100000 path=/small.txt range=0+1048576 act=fill-pwrite us=113
+    EVT pid=5823 comm=xp mask=0x100000 path=/small.txt range=16384+1052672 act=skip-already-filled us=60
+    READY marks=2 mark_ms=0
+=== mark=dir op=write fill=pwrite evflags=rdonly
+write n=7 err=0
+  differing bytes merged vs store: 7 (7 expected if copy-up got real data)
+  upper copy differing bytes: 7
+  lower/small.txt alloc blocks after: 40  lower/true blocks: 0
+  -- events:
+    SELFEVT mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt (auto-allowed; nested event raised by our own fill)
+    EVT pid=5863 comm=xp mask=0x100000 path=/small.txt range=0+20480 act=fill-pwrite us=111
+    READY marks=2 mark_ms=0
+=== mark=dir op=mmap fill=pwrite evflags=rdonly
+mmapread len=20000 nonzero=0 fnv=0ed9e7ee21f20da5
+mmapread then pread n=16 first16=[ca, f1, b9, 81, 81, 6f, 30, 09, 1f, 30, 5b, f0, f0, e5, 5f, 65]
+  lower/small.txt alloc blocks after: 40  lower/true blocks: 0
+  -- events:
+    EVT pid=5908 comm=xp mask=0x100000 path=/small.txt range=0+4096 act=fill-pwrite us=88
+    SELFEVT mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt (auto-allowed; nested event raised by our own fill)
+    READY marks=2 mark_ms=0
+=== mark=dir op=stat fill=pwrite evflags=rdonly
+  stat /cache/exp-ovl/e5/merged/small.txt size=20000 blocks=0
+  stat /cache/exp-ovl/e5/merged/true size=43320 blocks=0
+  ls ok rc=0
+  lower/small.txt alloc blocks after: 0  lower/true blocks: 0
+  -- events:
+    READY marks=2 mark_ms=0
+=== mark=dir op=exec fill=pwrite evflags=rdonly
+  exec rc=0
+  lower/small.txt alloc blocks after: 0  lower/true blocks: 88
+  -- events:
+    SELFEVT mask=0x100000 path=/cache/exp-ovl/e5/lower/true (auto-allowed; nested event raised by our own fill)
+    EVT pid=5986 comm=timeout mask=0x100000 path=/true range=0+4096 act=fill-pwrite us=122
+    EVT pid=5986 comm=timeout mask=0x100000 path=/true range=0+4096 act=skip-already-filled us=13
+    EVT pid=5986 comm=timeout mask=0x100000 path=/true range=0+4096 act=skip-already-filled us=430
+    READY marks=2 mark_ms=0
+=== mark=dir op=direct-read fill=pwrite evflags=rdonly
+sum bytes=20000 nonzero=19914 fnv=7439b97ee8e18545
+  expected: sum bytes=20000 nonzero=19914 fnv=7439b97ee8e18545
+  lower/small.txt alloc blocks after: 40  lower/true blocks: 0
+  -- events:
+    SELFEVT mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt (auto-allowed; nested event raised by our own fill)
+    EVT pid=6025 comm=xp mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt range=0+1048576 act=fill-pwrite us=137
+    EVT pid=6025 comm=xp mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt range=16384+1052672 act=skip-already-filled us=15
+    READY marks=2 mark_ms=0
+=== mark=dir op=direct-mmap fill=pwrite evflags=rdonly
+mmapread len=20000 nonzero=19907 fnv=c5df913ed0473d6a
+mmapread then pread n=16 first16=[cf, 53, 7d, b2, dd, 89, 22, 4e, 79, 05, de, 0f, bf, 99, 8d, bc]
+  lower/small.txt alloc blocks after: 40  lower/true blocks: 0
+  -- events:
+    SELFEVT mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt (auto-allowed; nested event raised by our own fill)
+    EVT pid=6065 comm=xp mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt range=0+20480 act=fill-pwrite us=162
+    EVT pid=6065 comm=xp mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt range=0+4096 act=skip-already-filled us=15
+    READY marks=2 mark_ms=0
+=== mark=dir op=direct-exec fill=pwrite evflags=rdonly
+  exec rc=0
+  lower/small.txt alloc blocks after: 0  lower/true blocks: 88
+  -- events:
+    SELFEVT mask=0x100000 path=/cache/exp-ovl/e5/lower/true (auto-allowed; nested event raised by our own fill)
+    EVT pid=6104 comm=timeout mask=0x100000 path=/cache/exp-ovl/e5/lower/true range=0+4096 act=fill-pwrite us=177
+    EVT pid=6104 comm=timeout mask=0x100000 path=/cache/exp-ovl/e5/lower/true range=0+4096 act=skip-already-filled us=21
+    EVT pid=6104 comm=timeout mask=0x100000 path=/cache/exp-ovl/e5/lower/true range=0+4096 act=skip-already-filled us=15
+    EVT pid=6104 comm=true mask=0x100000 path=/cache/exp-ovl/e5/lower/true range=0+45056 act=skip-already-filled us=17
+    EVT pid=6104 comm=true mask=0x100000 path=/cache/exp-ovl/e5/lower/true range=8192+20480 act=skip-already-filled us=16
+    EVT pid=6104 comm=true mask=0x100000 path=/cache/exp-ovl/e5/lower/true range=28672+8192 act=skip-already-filled us=16
+    EVT pid=6104 comm=true mask=0x100000 path=/cache/exp-ovl/e5/lower/true range=36864+8192 act=skip-already-filled us=15
+    READY marks=1 mark_ms=0
+=== mark=mount op=read fill=pwrite evflags=rdonly
+sum bytes=20000 nonzero=0 fnv=0ed9e7ee21f20da5
+  expected: sum bytes=20000 nonzero=19925 fnv=65ad93f06fed24c8
+  lower/small.txt alloc blocks after: 0  lower/true blocks: 0
+  -- events:
+    READY marks=1 mark_ms=0
+=== mark=mount op=write fill=pwrite evflags=rdonly
+write n=7 err=0
+  differing bytes merged vs store: 19933 (7 expected if copy-up got real data)
+  upper copy differing bytes: 19933
+  lower/small.txt alloc blocks after: 0  lower/true blocks: 0
+  -- events:
+    EVT pid=6188 comm=cmp mask=0x100000 path=/cache/exp-ovl/e5/upper/small.txt range=0+4096 act=skip-already-filled us=32
+    EVT pid=6188 comm=cmp mask=0x100000 path=/cache/exp-ovl/e5/upper/small.txt range=4096+4096 act=skip-already-filled us=13
+    EVT pid=6188 comm=cmp mask=0x100000 path=/cache/exp-ovl/e5/upper/small.txt range=8192+4096 act=skip-already-filled us=13
+    EVT pid=6188 comm=cmp mask=0x100000 path=/cache/exp-ovl/e5/upper/small.txt range=12288+4096 act=skip-already-filled us=13
+    EVT pid=6188 comm=cmp mask=0x100000 path=/cache/exp-ovl/e5/upper/small.txt range=16384+4096 act=skip-already-filled us=13
+    EVT pid=6188 comm=cmp mask=0x100000 path=/cache/exp-ovl/e5/upper/small.txt range=16384+4096 act=skip-already-filled us=12
+    READY marks=1 mark_ms=0
+=== mark=mount op=mmap fill=pwrite evflags=rdonly
+mmapread len=20000 nonzero=0 fnv=0ed9e7ee21f20da5
+mmapread then pread n=16 first16=[00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00]
+  lower/small.txt alloc blocks after: 0  lower/true blocks: 0
+  -- events:
+    READY marks=1 mark_ms=0
+=== mark=mount op=stat fill=pwrite evflags=rdonly
+  stat /cache/exp-ovl/e5/merged/small.txt size=20000 blocks=0
+  stat /cache/exp-ovl/e5/merged/true size=43320 blocks=0
+  ls ok rc=0
+  lower/small.txt alloc blocks after: 0  lower/true blocks: 0
+  -- events:
+    READY marks=1 mark_ms=0
+=== mark=mount op=exec fill=pwrite evflags=rdonly
+/cache/exp-ovl/e5/merged/true: /cache/exp-ovl/e5/merged/true: cannot execute binary file
+  exec rc=126
+  lower/small.txt alloc blocks after: 0  lower/true blocks: 0
+  -- events:
+    READY marks=1 mark_ms=0
+=== mark=mount op=direct-read fill=pwrite evflags=rdonly
+sum bytes=20000 nonzero=19913 fnv=652e2ee4864d7983
+  expected: sum bytes=20000 nonzero=19913 fnv=652e2ee4864d7983
+  lower/small.txt alloc blocks after: 40  lower/true blocks: 0
+  -- events:
+    SELFEVT mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt (auto-allowed; nested event raised by our own fill)
+    EVT pid=6345 comm=xp mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt range=0+1048576 act=fill-pwrite us=146
+    EVT pid=6345 comm=xp mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt range=16384+1052672 act=skip-already-filled us=13
+    READY marks=1 mark_ms=0
+=== mark=mount op=direct-mmap fill=pwrite evflags=rdonly
+mmapread len=20000 nonzero=19896 fnv=d6a56c8a23a549b1
+mmapread then pread n=16 first16=[32, 35, 97, 9e, 57, 2f, b2, 1b, 61, ff, 43, 71, 5c, f4, f6, 50]
+  lower/small.txt alloc blocks after: 40  lower/true blocks: 0
+  -- events:
+    EVT pid=6385 comm=xp mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt range=0+20480 act=fill-pwrite us=79
+    EVT pid=6385 comm=xp mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt range=0+4096 act=skip-already-filled us=14
+    SELFEVT mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt (auto-allowed; nested event raised by our own fill)
+    READY marks=1 mark_ms=0
+=== mark=mount op=direct-exec fill=pwrite evflags=rdonly
+  exec rc=0
+  lower/small.txt alloc blocks after: 0  lower/true blocks: 88
+  -- events:
+    SELFEVT mask=0x100000 path=/cache/exp-ovl/e5/lower/true (auto-allowed; nested event raised by our own fill)
+    EVT pid=6424 comm=timeout mask=0x100000 path=/cache/exp-ovl/e5/lower/true range=0+4096 act=fill-pwrite us=130
+    EVT pid=6424 comm=timeout mask=0x100000 path=/cache/exp-ovl/e5/lower/true range=0+4096 act=skip-already-filled us=15
+    EVT pid=6424 comm=timeout mask=0x100000 path=/cache/exp-ovl/e5/lower/true range=0+4096 act=skip-already-filled us=42
+    EVT pid=6424 comm=true mask=0x100000 path=/cache/exp-ovl/e5/lower/true range=0+45056 act=skip-already-filled us=15
+    EVT pid=6424 comm=true mask=0x100000 path=/cache/exp-ovl/e5/lower/true range=8192+20480 act=skip-already-filled us=12
+    EVT pid=6424 comm=true mask=0x100000 path=/cache/exp-ovl/e5/lower/true range=28672+8192 act=skip-already-filled us=11
+    EVT pid=6424 comm=true mask=0x100000 path=/cache/exp-ovl/e5/lower/true range=36864+8192 act=skip-already-filled us=11
+    READY marks=1 mark_ms=0
+=== mark=sb op=read fill=pwrite evflags=rdonly
+sum bytes=20000 nonzero=19915 fnv=855bb74b9da26f43
+  expected: sum bytes=20000 nonzero=19915 fnv=855bb74b9da26f43
+  lower/small.txt alloc blocks after: 40  lower/true blocks: 0
+  -- events:
+    SELFEVT mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt (auto-allowed; nested event raised by our own fill)
+    EVT pid=6463 comm=xp mask=0x100000 path=/small.txt range=0+1048576 act=fill-pwrite us=115
+    EVT pid=6463 comm=xp mask=0x100000 path=/small.txt range=16384+1052672 act=skip-already-filled us=17
+    READY marks=1 mark_ms=0
+=== mark=sb op=write fill=pwrite evflags=rdonly
+write n=7 err=0
+  differing bytes merged vs store: 7 (7 expected if copy-up got real data)
+  upper copy differing bytes: 7
+  lower/small.txt alloc blocks after: 40  lower/true blocks: 0
+  -- events:
+    SELFEVT mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt (auto-allowed; nested event raised by our own fill)
+    EVT pid=6503 comm=xp mask=0x100000 path=/small.txt range=0+20480 act=fill-pwrite us=116
+    EVT pid=6503 comm=xp mask=0x100000 path=/ (deleted) range=0+20480 act=skip-already-filled us=15
+    EVT pid=6503 comm=xp mask=0x100000 path=/small.txt range=0+4096 act=skip-already-filled us=27
+    EVT pid=6505 comm=cmp mask=0x100000 path=/small.txt range=0+4096 act=skip-already-filled us=18
+    EVT pid=6505 comm=cmp mask=0x100000 path=/small.txt range=4096+4096 act=skip-already-filled us=12
+    EVT pid=6505 comm=cmp mask=0x100000 path=/small.txt range=8192+4096 act=skip-already-filled us=19
+    EVT pid=6505 comm=cmp mask=0x100000 path=/small.txt range=12288+4096 act=skip-already-filled us=14
+    EVT pid=6505 comm=cmp mask=0x100000 path=/small.txt range=16384+4096 act=skip-already-filled us=14
+    EVT pid=6505 comm=cmp mask=0x100000 path=/small.txt range=16384+4096 act=skip-already-filled us=30
+    EVT pid=6508 comm=cmp mask=0x100000 path=/cache/exp-ovl/e5/upper/small.txt range=0+4096 act=skip-already-filled us=17
+    EVT pid=6508 comm=cmp mask=0x100000 path=/cache/exp-ovl/e5/upper/small.txt range=4096+4096 act=skip-already-filled us=14
+    EVT pid=6508 comm=cmp mask=0x100000 path=/cache/exp-ovl/e5/upper/small.txt range=8192+4096 act=skip-already-filled us=11
+    EVT pid=6508 comm=cmp mask=0x100000 path=/cache/exp-ovl/e5/upper/small.txt range=12288+4096 act=skip-already-filled us=11
+    EVT pid=6508 comm=cmp mask=0x100000 path=/cache/exp-ovl/e5/upper/small.txt range=16384+4096 act=skip-already-filled us=11
+    EVT pid=6508 comm=cmp mask=0x100000 path=/cache/exp-ovl/e5/upper/small.txt range=16384+4096 act=skip-already-filled us=11
+    READY marks=1 mark_ms=0
+=== mark=sb op=mmap fill=pwrite evflags=rdonly
+mmapread len=20000 nonzero=0 fnv=0ed9e7ee21f20da5
+mmapread then pread n=16 first16=[4d, 53, d7, a7, 51, 7d, b0, 33, de, cd, ce, f9, bd, f8, 65, 7f]
+  lower/small.txt alloc blocks after: 40  lower/true blocks: 0
+  -- events:
+    EVT pid=6548 comm=xp mask=0x100000 path=/small.txt range=0+4096 act=fill-pwrite us=80
+    SELFEVT mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt (auto-allowed; nested event raised by our own fill)
+    READY marks=1 mark_ms=0
+=== mark=sb op=stat fill=pwrite evflags=rdonly
+  stat /cache/exp-ovl/e5/merged/small.txt size=20000 blocks=0
+  stat /cache/exp-ovl/e5/merged/true size=43320 blocks=0
+  ls ok rc=0
+  lower/small.txt alloc blocks after: 0  lower/true blocks: 0
+  -- events:
+    READY marks=1 mark_ms=0
+=== mark=sb op=exec fill=pwrite evflags=rdonly
+  exec rc=0
+  lower/small.txt alloc blocks after: 0  lower/true blocks: 88
+  -- events:
+    SELFEVT mask=0x100000 path=/cache/exp-ovl/e5/lower/true (auto-allowed; nested event raised by our own fill)
+    EVT pid=6626 comm=timeout mask=0x100000 path=/true range=0+4096 act=fill-pwrite us=228
+    EVT pid=6626 comm=timeout mask=0x100000 path=/true range=0+4096 act=skip-already-filled us=32
+    EVT pid=6626 comm=timeout mask=0x100000 path=/true range=0+4096 act=skip-already-filled us=18
+    READY marks=1 mark_ms=0
+=== mark=sb op=direct-read fill=pwrite evflags=rdonly
+sum bytes=20000 nonzero=19934 fnv=db7acf07b1289b16
+  expected: sum bytes=20000 nonzero=19934 fnv=db7acf07b1289b16
+  lower/small.txt alloc blocks after: 40  lower/true blocks: 0
+  -- events:
+    SELFEVT mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt (auto-allowed; nested event raised by our own fill)
+    EVT pid=6665 comm=xp mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt range=0+1048576 act=fill-pwrite us=137
+    EVT pid=6665 comm=xp mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt range=16384+1052672 act=skip-already-filled us=19
+    READY marks=1 mark_ms=0
+=== mark=sb op=direct-mmap fill=pwrite evflags=rdonly
+mmapread len=20000 nonzero=19905 fnv=df5d74e148b71531
+mmapread then pread n=16 first16=[8e, 1a, 4b, 11, d6, 66, c3, 32, 22, fa, 92, 5c, e7, 6f, c1, a7]
+  lower/small.txt alloc blocks after: 40  lower/true blocks: 0
+  -- events:
+    SELFEVT mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt (auto-allowed; nested event raised by our own fill)
+    EVT pid=6705 comm=xp mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt range=0+20480 act=fill-pwrite us=131
+    EVT pid=6705 comm=xp mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt range=0+4096 act=skip-already-filled us=19
+    READY marks=1 mark_ms=0
+=== mark=sb op=direct-exec fill=pwrite evflags=rdonly
+  exec rc=0
+  lower/small.txt alloc blocks after: 0  lower/true blocks: 88
+  -- events:
+    SELFEVT mask=0x100000 path=/cache/exp-ovl/e5/lower/true (auto-allowed; nested event raised by our own fill)
+    EVT pid=6744 comm=timeout mask=0x100000 path=/cache/exp-ovl/e5/lower/true range=0+4096 act=fill-pwrite us=124
+    EVT pid=6744 comm=timeout mask=0x100000 path=/cache/exp-ovl/e5/lower/true range=0+4096 act=skip-already-filled us=17
+    EVT pid=6744 comm=timeout mask=0x100000 path=/cache/exp-ovl/e5/lower/true range=0+4096 act=skip-already-filled us=41
+    EVT pid=6744 comm=true mask=0x100000 path=/cache/exp-ovl/e5/lower/true range=0+45056 act=skip-already-filled us=13
+    EVT pid=6744 comm=true mask=0x100000 path=/cache/exp-ovl/e5/lower/true range=8192+20480 act=skip-already-filled us=13
+    EVT pid=6744 comm=true mask=0x100000 path=/cache/exp-ovl/e5/lower/true range=28672+8192 act=skip-already-filled us=28
+    EVT pid=6744 comm=true mask=0x100000 path=/cache/exp-ovl/e5/lower/true range=36864+8192 act=skip-already-filled us=12
+    READY marks=2 mark_ms=0
+=== mark=dir op=dir-child-read fill=pwrite evflags=rdonly
+sum bytes=100000 nonzero=99579 fnv=f3e349063dad1ea9
+  lower/small.txt alloc blocks after: 0  lower/true blocks: 0
+  -- events:
+    SELFEVT mask=0x100000 path=/cache/exp-ovl/e5/lower/sub/child.dat (auto-allowed; nested event raised by our own fill)
+    EVT pid=6783 comm=xp mask=0x100000 path=/sub/child.dat range=0+1048576 act=fill-pwrite us=171
+    EVT pid=6783 comm=xp mask=0x100000 path=/sub/child.dat range=98304+1052672 act=skip-already-filled us=15
+    READY marks=4 mark_ms=0
+=== mark=inode op=read fill=pwrite evflags=rdwr
+sum read_err=Operation not permitted (os error 1) after=0
+  expected: sum bytes=20000 nonzero=19924 fnv=71223243ae407659
+  lower/small.txt alloc blocks after: 0  lower/true blocks: 0
+  -- events:
+    READERR Read-only file system (os error 30)
+    READY marks=4 mark_ms=0
+=== mark=inode op=direct-read fill=pwrite evflags=rdwr
+sum bytes=20000 nonzero=19926 fnv=9e7550d6b48f7195
+  expected: sum bytes=20000 nonzero=19926 fnv=9e7550d6b48f7195
+  lower/small.txt alloc blocks after: 40  lower/true blocks: 0
+  -- events:
+    EVT pid=6862 comm=xp mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt range=0+1048576 act=fill-pwrite us=54
+    EVT pid=6862 comm=xp mask=0x100000 path=/cache/exp-ovl/e5/lower/small.txt range=16384+1052672 act=skip-already-filled us=16
+    READY marks=4 mark_ms=0
+=== mark=inode op=exec fill=pwrite evflags=rdwr
+timeout: failed to run command '/cache/exp-ovl/e5/merged/true': Operation not permitted
+  exec rc=126
+  lower/small.txt alloc blocks after: 0  lower/true blocks: 0
+  -- events:
+    READERR Read-only file system (os error 30)
+    READY marks=4 mark_ms=0
+=== mark=inode op=read fill=pwrite evflags=rdwr
+sum read_err=Operation not permitted (os error 1) after=0
+  expected: sum bytes=20000 nonzero=19912 fnv=4d98ef0e9d03d7c2
+  lower/small.txt alloc blocks after: 0  lower/true blocks: 0
+  -- events:
+    READERR Read-only file system (os error 30)
+    READY marks=4 mark_ms=0
+=== mark=inode op=mmap fill=none evflags=rdonly
+mmapread len=20000 nonzero=0 fnv=0ed9e7ee21f20da5
+mmapread then pread n=16 first16=[00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00]
+  lower/small.txt alloc blocks after: 0  lower/true blocks: 0
+  -- events:
+    EVT pid=6981 comm=xp mask=0x100000 path=/small.txt range=0+4096 act=allow-nofill us=49
+    READY marks=4 mark_ms=0
+=== mark=inode op=write fill=none evflags=rdonly
+write n=7 err=0
+  differing bytes merged vs store: 19919 (7 expected if copy-up got real data)
+  upper copy differing bytes: 19919
+  lower/small.txt alloc blocks after: 0  lower/true blocks: 0
+  -- events:
+    EVT pid=7020 comm=xp mask=0x100000 path=/small.txt range=0+20480 act=allow-nofill us=24

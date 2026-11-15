@@ -1,0 +1,8 @@
+RESULT marks mode=sb limited=false marks_added=1 stopped= errno=0 mark_syscall_secs=0.00 wall_secs=0.00 marks_per_s=578 max_user_marks=35997
+MEM marks_live_before_drop count=1 dSlab=0MiB dSUnreclaim=0MiB dSReclaimable=0MiB dMemAvailable=0MiB dMemFree=0MiB | per_item: slab=0B sunreclaim=0B memfree=0B
+MEM marks_pinned_after_drop_caches count=1 dSlab=-2MiB dSUnreclaim=0MiB dSReclaimable=-1MiB dMemAvailable=9MiB dMemFree=19MiB | per_item: slab=-2236416B sunreclaim=-401408B memfree=-20369408B
+  CACHE marks_pinned_after_drop_caches radix_tree_node dObjs=-2100 dKiB=-1197 per_item=-1226400B
+  CACHE marks_pinned_after_drop_caches btrfs_inode dObjs=-629 dKiB=-579 per_item=-593776B
+MEM marks_after_close_and_drop count=1 dSlab=-2MiB dSUnreclaim=0MiB dSReclaimable=-1MiB dMemAvailable=7MiB dMemFree=17MiB | per_item: slab=-2367488B sunreclaim=-401408B memfree=-18567168B
+  CACHE marks_after_close_and_drop radix_tree_node dObjs=-2100 dKiB=-1197 per_item=-1226400B
+  CACHE marks_after_close_and_drop btrfs_inode dObjs=-629 dKiB=-579 per_item=-593776B

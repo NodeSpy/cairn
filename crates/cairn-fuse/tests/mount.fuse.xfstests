@@ -1,0 +1,27 @@
+#!/bin/bash
+# xfstests helper installed as /sbin/mount.fuse on lfs-srv: `mount -t fuse lfs-<name> <mountpoint> [-o opts]`.
+# /etc/lfs-xfstests-daemon selects the daemon: "cairnd" (real offline Core, state persists across
+# xfstests' unmount/mount cycles) or anything else = the E15 fuse-fidelity loopback.
+dev=$1; mnt=$2; shift 2
+opts=""
+while [ $# -gt 0 ]; do case "$1" in -o) opts="$opts,$2"; shift 2;; *) shift;; esac; done
+name=${dev#lfs-}
+if [ "$(cat /etc/lfs-xfstests-daemon 2>/dev/null)" = cairnd ]; then
+  sfx=; case $mnt in /mnt/xtest|/mnt/xscratch) ;; *) sfx=-$(basename $mnt);; esac; cfg=/cache/xc-$name$sfx.toml
+  cat > $cfg <<TOML
+offline = true
+cache_dir = "/cache/xc-$name-state$sfx"
+creds_dir = "/nonexistent"
+[root.x]
+path = "$mnt"
+TOML
+  setsid /cache/tools/cairnd --config $cfg --fsname "$dev" --mntopts "atime$opts" ${LFS_EXTRA} >> /tmp/lfs-xfstests.log 2>&1 < /dev/null &
+else
+  back=/cache/xfs-${name}-backing
+  setsid /usr/local/bin/fuse-fidelity --backing "$back" --fsname "$dev" --mount "$mnt" --passthrough --mntopts "atime$opts" ${LFS_EXTRA} >> /tmp/lfs-xfstests.log 2>&1 < /dev/null &
+fi
+for i in $(seq 1 100); do
+  mountpoint -q "$mnt" && exit 0
+  sleep 0.1
+done
+echo "mount.fuse: timeout" >&2; exit 1

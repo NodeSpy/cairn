@@ -1,0 +1,13 @@
+=== E4 run 'C1-readers-v0': iters=4000 variant=v0(naive) widen_us=0 rest_us=500 readers=4 writers=0 holders=0
+  reader: reader hold=false reads=2047 bad=0 zero_bad=0 errs=0 first_bad=
+  reader: reader hold=false reads=2019 bad=0 zero_bad=0 errs=0 first_bad=
+  reader: reader hold=false reads=2009 bad=0 zero_bad=0 errs=0 first_bad=
+  reader: reader hold=false reads=2061 bad=0 zero_bad=0 errs=0 first_bad=
+  elapsed 93.8s, 43 eviction cycles/s
+  outcome evicted: 2974
+  outcome evicted-but-blocks-nonzero(raced-by-writer-refill): 89
+  outcome refused(EAGAIN): 700
+  outcome restore-lease-failed:EAGAIN: 326
+  handler: events=18513 self_events=4084 fills=2974 punches=2974 other-process events on the victim inode inside the window=118 (of which handled BEFORE the punch=1)
+  RESULT: reader checks=8136 bad_reads=0 (zero_bytes_seen=0) ; final full-file verify bad files=0 ; mtime-not-restored files (valid only w/o writers)=0
+  VERDICT: PASS (no bad bytes)

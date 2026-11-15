@@ -1,0 +1,20 @@
+RESULT marks mode=dir limited=false marks_added=200000 stopped= errno=0 mark_syscall_secs=37.21 wall_secs=47.57 marks_per_s=5375 max_user_marks=35997
+MEM marks_live_before_drop count=200000 dSlab=252MiB dSUnreclaim=33MiB dSReclaimable=218MiB dMemAvailable=-197MiB dMemFree=-713MiB | per_item: slab=1324B sunreclaim=178B memfree=3740B
+  CACHE marks_live_before_drop btrfs_inode dObjs=197557 dKiB=182122 per_item=932B
+  CACHE marks_live_before_drop dentry dObjs=189483 dKiB=35528 per_item=182B
+  CACHE marks_live_before_drop sigqueue dObjs=198441 dKiB=15503 per_item=79B
+  CACHE marks_live_before_drop fsnotify_inode_mark_connector dObjs=197982 dKiB=7733 per_item=40B
+  CACHE marks_live_before_drop btrfs_extent_buffer dObjs=22321 dKiB=5231 per_item=27B
+  CACHE marks_live_before_drop lsm_file_cache dObjs=157568 dKiB=4924 per_item=25B
+  CACHE marks_live_before_drop radix_tree_node dObjs=3122 dKiB=1780 per_item=9B
+  CACHE marks_live_before_drop kmalloc-512 dObjs=2688 dKiB=1344 per_item=7B
+MEM marks_pinned_after_drop_caches count=200000 dSlab=211MiB dSUnreclaim=28MiB dSReclaimable=183MiB dMemAvailable=-122MiB dMemFree=-208MiB | per_item: slab=1111B sunreclaim=150B memfree=1095B
+  CACHE marks_pinned_after_drop_caches btrfs_inode dObjs=197557 dKiB=182122 per_item=932B
+  CACHE marks_pinned_after_drop_caches sigqueue dObjs=198441 dKiB=15503 per_item=79B
+  CACHE marks_pinned_after_drop_caches fsnotify_inode_mark_connector dObjs=197982 dKiB=7733 per_item=40B
+  CACHE marks_pinned_after_drop_caches lsm_file_cache dObjs=157568 dKiB=4924 per_item=25B
+  CACHE marks_pinned_after_drop_caches radix_tree_node dObjs=2996 dKiB=1708 per_item=9B
+  CACHE marks_pinned_after_drop_caches kmalloc-512 dObjs=2688 dKiB=1344 per_item=7B
+MEM marks_after_close_and_drop count=200000 dSlab=0MiB dSUnreclaim=0MiB dSReclaimable=0MiB dMemAvailable=-14MiB dMemFree=-13MiB | per_item: slab=-5B sunreclaim=-1B memfree=71B
+  CACHE marks_after_close_and_drop radix_tree_node dObjs=-672 dKiB=-383 per_item=-2B
+  CACHE marks_after_close_and_drop btrfs_inode dObjs=-357 dKiB=-329 per_item=-2B

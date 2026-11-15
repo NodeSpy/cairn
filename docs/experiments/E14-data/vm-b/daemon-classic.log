@@ -1,0 +1,2 @@
+fuse-pt: init, passthrough=true writeback=false tune=Tune { nodir: true, create1: true, noopen: false, killpriv: false, explicit: false, neg: true, rdplus: true }
+fuse-pt: mounted /mnt/ram/backing -> /mnt/lfs passthrough=true writeback=false threads=4 ttl=3600s tune=Tune { nodir: true, create1: true, noopen: false, killpriv: false, explicit: false, neg: true, rdplus: true } transport=classic

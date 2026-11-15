@@ -1,0 +1,79 @@
+RESULT gen target=3000000 files=2791684 dirs=200000 entries=2991684 logical_bytes=84164944621 max_dir_depth=8 avg_dir_depth=6.0 avg_fanout=15.0 secs_dirs=3.0 secs_files=191.5 secs_sync=55.4 entries_per_s=15384 threads=2
+RESULT gen size_p50=4090 p90=52637 p99=419641 p999=1876020 max=24338385
+Data, single: total=2.00GiB, used=5.27MiB
+System, DUP: total=8.00MiB, used=16.00KiB
+Metadata, DUP: total=1.50GiB, used=1.47GiB
+GlobalReserve, single: total=5.75MiB, used=0.00B
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sdb         20G  3.0G   17G  15% /cache
+RESULT scan j=1 cold files=2791684 dirs=200000 secs=218.09 entries_per_s=13718 logical_bytes=84164944621 allocated_blocks512=0
+RESULT scan j=1 warm files=2791684 dirs=200000 secs=352.06 entries_per_s=8498 logical_bytes=84164944621 allocated_blocks512=0
+RESULT scan j=1 warm2 files=2791684 dirs=200000 secs=33.74 entries_per_s=88669 logical_bytes=84164944621 allocated_blocks512=0
+RESULT scan j=2 cold files=2791684 dirs=200000 secs=69.12 entries_per_s=43285 logical_bytes=84164944621 allocated_blocks512=0
+RESULT scan j=2 warm files=2791684 dirs=200000 secs=23.72 entries_per_s=126110 logical_bytes=84164944621 allocated_blocks512=0
+RESULT scan j=2 warm2 files=2791684 dirs=200000 secs=22.73 entries_per_s=131611 logical_bytes=84164944621 allocated_blocks512=0
+MEM scan_cache_after_warm count=0 dSlab=2393MiB dSUnreclaim=98MiB dSReclaimable=2294MiB dMemAvailable=-148MiB dMemFree=-3429MiB | per_item: slab=2509660160B sunreclaim=103522304B memfree=3595726848B
+  CACHE scan_cache_after_warm btrfs_inode dObjs=2240651 dKiB=2065600 per_item=2115174544B
+  CACHE scan_cache_after_warm dentry dObjs=1121589 dKiB=210297 per_item=215345088B
+  CACHE scan_cache_after_warm lsm_file_cache dObjs=2225920 dKiB=69560 per_item=71229440B
+  CACHE scan_cache_after_warm radix_tree_node dObjs=47642 dKiB=27170 per_item=27822928B
+  CACHE scan_cache_after_warm btrfs_extent_buffer dObjs=64481 dKiB=15112 per_item=15475440B
+  CACHE scan_cache_after_warm kmalloc-192 dObjs=80283 dKiB=15053 per_item=15414336B
+MEM scan_cache_per_entry count=2991684 dSlab=2393MiB dSUnreclaim=98MiB dSReclaimable=2294MiB dMemAvailable=-148MiB dMemFree=-3429MiB | per_item: slab=839B sunreclaim=35B memfree=1202B
+  CACHE scan_cache_per_entry btrfs_inode dObjs=2240651 dKiB=2065600 per_item=707B
+  CACHE scan_cache_per_entry dentry dObjs=1121589 dKiB=210297 per_item=72B
+  CACHE scan_cache_per_entry lsm_file_cache dObjs=2225920 dKiB=69560 per_item=24B
+  CACHE scan_cache_per_entry radix_tree_node dObjs=47642 dKiB=27170 per_item=9B
+  CACHE scan_cache_per_entry btrfs_extent_buffer dObjs=64481 dKiB=15112 per_item=5B
+  CACHE scan_cache_per_entry kmalloc-192 dObjs=80283 dKiB=15053 per_item=5B
+RESULT marks mode=sb limited=false marks_added=1 stopped= errno=0 mark_syscall_secs=0.00 wall_secs=0.00 marks_per_s=578 max_user_marks=35997
+MEM marks_live_before_drop count=1 dSlab=0MiB dSUnreclaim=0MiB dSReclaimable=0MiB dMemAvailable=0MiB dMemFree=0MiB | per_item: slab=0B sunreclaim=0B memfree=0B
+MEM marks_pinned_after_drop_caches count=1 dSlab=-2MiB dSUnreclaim=0MiB dSReclaimable=-1MiB dMemAvailable=9MiB dMemFree=19MiB | per_item: slab=-2236416B sunreclaim=-401408B memfree=-20369408B
+  CACHE marks_pinned_after_drop_caches radix_tree_node dObjs=-2100 dKiB=-1197 per_item=-1226400B
+  CACHE marks_pinned_after_drop_caches btrfs_inode dObjs=-629 dKiB=-579 per_item=-593776B
+MEM marks_after_close_and_drop count=1 dSlab=-2MiB dSUnreclaim=0MiB dSReclaimable=-1MiB dMemAvailable=7MiB dMemFree=17MiB | per_item: slab=-2367488B sunreclaim=-401408B memfree=-18567168B
+  CACHE marks_after_close_and_drop radix_tree_node dObjs=-2100 dKiB=-1197 per_item=-1226400B
+  CACHE marks_after_close_and_drop btrfs_inode dObjs=-629 dKiB=-579 per_item=-593776B
+RESULT marks mode=dir limited=false marks_added=200000 stopped= errno=0 mark_syscall_secs=37.21 wall_secs=47.57 marks_per_s=5375 max_user_marks=35997
+MEM marks_live_before_drop count=200000 dSlab=252MiB dSUnreclaim=33MiB dSReclaimable=218MiB dMemAvailable=-197MiB dMemFree=-713MiB | per_item: slab=1324B sunreclaim=178B memfree=3740B
+  CACHE marks_live_before_drop btrfs_inode dObjs=197557 dKiB=182122 per_item=932B
+  CACHE marks_live_before_drop dentry dObjs=189483 dKiB=35528 per_item=182B
+  CACHE marks_live_before_drop sigqueue dObjs=198441 dKiB=15503 per_item=79B
+  CACHE marks_live_before_drop fsnotify_inode_mark_connector dObjs=197982 dKiB=7733 per_item=40B
+  CACHE marks_live_before_drop btrfs_extent_buffer dObjs=22321 dKiB=5231 per_item=27B
+  CACHE marks_live_before_drop lsm_file_cache dObjs=157568 dKiB=4924 per_item=25B
+  CACHE marks_live_before_drop radix_tree_node dObjs=3122 dKiB=1780 per_item=9B
+  CACHE marks_live_before_drop kmalloc-512 dObjs=2688 dKiB=1344 per_item=7B
+MEM marks_pinned_after_drop_caches count=200000 dSlab=211MiB dSUnreclaim=28MiB dSReclaimable=183MiB dMemAvailable=-122MiB dMemFree=-208MiB | per_item: slab=1111B sunreclaim=150B memfree=1095B
+  CACHE marks_pinned_after_drop_caches btrfs_inode dObjs=197557 dKiB=182122 per_item=932B
+  CACHE marks_pinned_after_drop_caches sigqueue dObjs=198441 dKiB=15503 per_item=79B
+  CACHE marks_pinned_after_drop_caches fsnotify_inode_mark_connector dObjs=197982 dKiB=7733 per_item=40B
+  CACHE marks_pinned_after_drop_caches lsm_file_cache dObjs=157568 dKiB=4924 per_item=25B
+  CACHE marks_pinned_after_drop_caches radix_tree_node dObjs=2996 dKiB=1708 per_item=9B
+  CACHE marks_pinned_after_drop_caches kmalloc-512 dObjs=2688 dKiB=1344 per_item=7B
+MEM marks_after_close_and_drop count=200000 dSlab=0MiB dSUnreclaim=0MiB dSReclaimable=0MiB dMemAvailable=-14MiB dMemFree=-13MiB | per_item: slab=-5B sunreclaim=-1B memfree=71B
+  CACHE marks_after_close_and_drop radix_tree_node dObjs=-672 dKiB=-383 per_item=-2B
+  CACHE marks_after_close_and_drop btrfs_inode dObjs=-357 dKiB=-329 per_item=-2B
+RESULT marks mode=inode limited=false marks_added=1667072 stopped=memguard errno=0 mark_syscall_secs=140.71 wall_secs=255.57 marks_per_s=11848 max_user_marks=35997
+MEM marks_live_before_drop count=1667072 dSlab=2284MiB dSUnreclaim=287MiB dSReclaimable=1997MiB dMemAvailable=-458MiB dMemFree=-3366MiB | per_item: slab=1437B sunreclaim=181B memfree=2118B
+  CACHE marks_live_before_drop btrfs_inode dObjs=1784473 dKiB=1645061 per_item=1010B
+  CACHE marks_live_before_drop dentry dObjs=1776516 dKiB=333096 per_item=205B
+  CACHE marks_live_before_drop sigqueue dObjs=1665558 dKiB=130121 per_item=80B
+  CACHE marks_live_before_drop fsnotify_inode_mark_connector dObjs=1665150 dKiB=65044 per_item=40B
+  CACHE marks_live_before_drop lsm_file_cache dObjs=1748224 dKiB=54632 per_item=34B
+  CACHE marks_live_before_drop radix_tree_node dObjs=47684 dKiB=27194 per_item=17B
+  CACHE marks_live_before_drop kmalloc-512 dObjs=31136 dKiB=15568 per_item=10B
+  CACHE marks_live_before_drop btrfs_extent_buffer dObjs=60843 dKiB=14260 per_item=9B
+MEM marks_pinned_after_drop_caches count=1667072 dSlab=1926MiB dSUnreclaim=259MiB dSReclaimable=1667MiB dMemAvailable=-484MiB dMemFree=-2042MiB | per_item: slab=1212B sunreclaim=163B memfree=1285B
+  CACHE marks_pinned_after_drop_caches btrfs_inode dObjs=1784473 dKiB=1645061 per_item=1010B
+  CACHE marks_pinned_after_drop_caches sigqueue dObjs=1665558 dKiB=130121 per_item=80B
+  CACHE marks_pinned_after_drop_caches fsnotify_inode_mark_connector dObjs=1665150 dKiB=65044 per_item=40B
+  CACHE marks_pinned_after_drop_caches lsm_file_cache dObjs=1748224 dKiB=54632 per_item=34B
+  CACHE marks_pinned_after_drop_caches radix_tree_node dObjs=47698 dKiB=27202 per_item=17B
+  CACHE marks_pinned_after_drop_caches kmalloc-512 dObjs=31136 dKiB=15568 per_item=10B
+MEM marks_after_close_and_drop count=1667072 dSlab=1MiB dSUnreclaim=0MiB dSReclaimable=1MiB dMemAvailable=-20MiB dMemFree=-22MiB | per_item: slab=1B sunreclaim=-0B memfree=14B
+  CACHE marks_after_close_and_drop btrfs_inode dObjs=1819 dKiB=1676 per_item=1B
+  CACHE marks_after_close_and_drop radix_tree_node dObjs=-462 dKiB=-263 per_item=-0B
+INFO nofile_before cur=1024 max=524288
+  CHUNK open upto=300000 secs=512.59
+  CHUNK open upto=600000 secs=489.49

@@ -1,0 +1,47 @@
+##### FICLONE whole file
+- clone to new file (1 MiB):
+FICLONE errno=0 us=107722 dst_before[size=0 bytes_alloc=0 mtime=1794550534.375053307 ctime=1794550534.375053307] dst_after[size=1048576 bytes_alloc=1048576 mtime=1794550534.503058218 ctime=1794550534.503058218] dst:mtime_changed=true ctime_changed=true size_changed=true src:mtime_changed=false ctime_changed=false size_changed=false
+  inotify events:
+    IN /cache/exp-ovl/e7/c src OPEN
+    IN /cache/exp-ovl/e7/c new CREATE
+    IN /cache/exp-ovl/e7/c new OPEN
+    IN /cache/exp-ovl/e7/c src ACCESS
+    IN /cache/exp-ovl/e7/c new MODIFY
+    IN /cache/exp-ovl/e7/c new CLOSE_WRITE
+    IN /cache/exp-ovl/e7/c src CLOSE_NOWRITE
+- clone odd-size (100001 B) file:
+FICLONE errno=0 us=46707 dst_before[size=0 bytes_alloc=0 mtime=1794550536.380130110 ctime=1794550536.380130110] dst_after[size=100001 bytes_alloc=102400 mtime=1794550536.448132711 ctime=1794550536.448132711] dst:mtime_changed=true ctime_changed=true size_changed=true src:mtime_changed=false ctime_changed=false size_changed=false
+  content identical
+- clone onto existing larger/different dst (64 KiB -> 1 MiB, then 1 MiB -> 100001 B):
+FICLONE errno=0 us=24957 dst_before[size=65536 bytes_alloc=65536 mtime=1794550534.373600457 ctime=1794550534.373600457] dst_after[size=1048576 bytes_alloc=1048576 mtime=1794550536.514135232 ctime=1794550536.514135232] dst:mtime_changed=true ctime_changed=true size_changed=true src:mtime_changed=false ctime_changed=false size_changed=false
+FICLONE errno=22(Invalid argument (os error 22)) us=4 dst_before[size=1048576 bytes_alloc=1048576 mtime=1794550536.514135232 ctime=1794550536.514135232] dst_after[size=1048576 bytes_alloc=1048576 mtime=1794550536.514135232 ctime=1794550536.514135232] dst:mtime_changed=false ctime_changed=false size_changed=false src:mtime_changed=false ctime_changed=false size_changed=false
+  old size now 1048576
+- clone onto itself:
+FICLONE errno=22(Invalid argument (os error 22)) us=5 dst_before[size=1048576 bytes_alloc=1048576 mtime=1794550534.370053115 ctime=1794550534.370053115] dst_after[size=1048576 bytes_alloc=1048576 mtime=1794550534.370053115 ctime=1794550534.370053115] dst:mtime_changed=false ctime_changed=false size_changed=false src:mtime_changed=false ctime_changed=false size_changed=false
+- shared extents (filefrag physical of src vs new):
+   0:        0..     255:      80559..     80814:    256:             last,shared,eof
+   0:        0..     255:      80559..     80814:    256:             last,shared,eof
+- cross-directory/subvolume boundary: skipped (single subvolume)
+
+##### FICLONERANGE alignment (bsize 4096; src S=16385 bytes, dst D=65536 bytes random)
+[aligned 4096@0 -> @0] FICLONERANGE src_off=0 len=4096 dst_off=0 errno=0 us=65174 dst_size 65536->65536
+[aligned 8192@4096 -> @16384] FICLONERANGE src_off=4096 len=8192 dst_off=16384 errno=0 us=4187 dst_size 65536->65536
+[src_off unaligned (1)] FICLONERANGE src_off=1 len=4096 dst_off=0 errno=22(Invalid argument (os error 22)) us=2891 dst_size 65536->65536
+[dst_off unaligned (1)] FICLONERANGE src_off=0 len=4096 dst_off=1 errno=22(Invalid argument (os error 22)) us=3582 dst_size 65536->65536
+[len unaligned 100, mid-file] FICLONERANGE src_off=0 len=100 dst_off=0 errno=22(Invalid argument (os error 22)) us=4643 dst_size 65536->65536
+[len 4097, not reaching src EOF] FICLONERANGE src_off=0 len=4097 dst_off=0 errno=22(Invalid argument (os error 22)) us=14570 dst_size 65536->65536
+[len 0 (=to EOF) from 4096] FICLONERANGE src_off=4096 len=0 dst_off=4096 errno=22(Invalid argument (os error 22)) us=6499 dst_size 65536->65536
+[tail incl. unaligned EOF 12288+4097 -> dst@12288 (dst longer than end)] FICLONERANGE src_off=12288 len=4097 dst_off=12288 errno=22(Invalid argument (os error 22)) us=9116 dst_size 65536->65536
+[tail to dst EOF: dst=20000 B, S[12288..EOF]->dst@12288] FICLONERANGE src_off=12288 len=0 dst_off=12288 errno=22(Invalid argument (os error 22)) us=8 dst_size 20000->20000
+[dst==16385 B (same size as src): tail 12288+4097 -> dst@12288] FICLONERANGE src_off=12288 len=4097 dst_off=12288 errno=0 us=42 dst_size 16385->16385
+[dst==16385 B: whole file len 0 from 0 (FICLONE-like)] FICLONERANGE src_off=0 len=0 dst_off=0 errno=0 us=57 dst_size 16385->16385
+[dst==16384 B (aligned, shorter than src's unaligned end): tail 12288+4097] FICLONERANGE src_off=12288 len=4097 dst_off=12288 errno=0 us=85 dst_size 16384->16385
+[range past src EOF 12288+8192] FICLONERANGE src_off=12288 len=8192 dst_off=12288 errno=22(Invalid argument (os error 22)) us=12477 dst_size 65536->65536
+[dst offset past dst EOF (aligned 1MiB), len 8192] FICLONERANGE src_off=0 len=8192 dst_off=1048576 errno=0 us=37 dst_size 65536->1056768
+[src_off past src EOF] FICLONERANGE src_off=32768 len=4096 dst_off=0 errno=22(Invalid argument (os error 22)) us=4028 dst_size 65536->65536
+[self, non-overlapping 0..4096 -> 8192] FICLONERANGE src_off=0 len=4096 dst_off=8192 errno=0 us=58 dst_size 65536->65536
+[self, overlapping 0..8192 -> 4096] FICLONERANGE src_off=0 len=8192 dst_off=4096 errno=22(Invalid argument (os error 22)) us=5 dst_size 65536->65536
+- full result incl. timestamps for one aligned clonerange into a mid-file dst:
+FICLONERANGE src_off=0 len=4096 dst_off=8192 errno=0 us=5204 dst_size 65536->65536 dst:mtime_changed=true ctime_changed=true size_changed=false src:mtime_changed=false ctime_changed=false size_changed=false
+- clonerange with src range lying in a file with FICLONERANGE to a different filesystem: n/a
+

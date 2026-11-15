@@ -1,0 +1,17 @@
+[package]
+name = "cairn-testkit"
+version.workspace = true
+edition.workspace = true
+
+[features]
+real = []
+
+[dependencies]
+cairn-proto.workspace = true
+cairn-server = { path = "../cairn-server" }
+cairn-client.workspace = true
+anyhow.workspace = true
+rand.workspace = true
+tokio.workspace = true
+tempfile.workspace = true
+tracing.workspace = true

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2f6fdf"/>
+      <stop offset="1" stop-color="#173f8f"/>
+    </linearGradient>
+    <linearGradient id="s1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f4f7fb"/><stop offset="1" stop-color="#c9d4e3"/>
+    </linearGradient>
+    <linearGradient id="s2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e3eaf4"/><stop offset="1" stop-color="#b3c1d6"/>
+    </linearGradient>
+    <linearGradient id="s3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffd27a"/><stop offset="1" stop-color="#f2a93b"/>
+    </linearGradient>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#0a1f4d" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+  <rect x="8" y="8" width="240" height="240" rx="52" fill="url(#bg)"/>
+  <ellipse cx="128" cy="214" rx="78" ry="10" fill="#0a1f4d" opacity="0.35"/>
+  <g filter="url(#sh)">
+    <rect x="48"  y="166" width="160" height="44" rx="22" fill="url(#s2)"/>
+    <rect x="66"  y="124" width="128" height="40" rx="20" fill="url(#s1)" transform="rotate(-4 130 144)"/>
+    <rect x="82"  y="86"  width="96"  height="36" rx="18" fill="url(#s2)" transform="rotate(3 130 104)"/>
+    <ellipse cx="128" cy="62" rx="30" ry="21" fill="url(#s3)"/>
+  </g>
+</svg>

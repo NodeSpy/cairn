@@ -1,0 +1,11 @@
+== native native: setup
+stat n=3000 median_us=1.4 p90_us=1.7 p99_us=2.6 mean_us=1.6
+stat n=3000 median_us=1.9 p90_us=2.1 p99_us=2.6 mean_us=2.0
+stat n=3000 median_us=1.4 p90_us=1.6 p99_us=1.9 mean_us=1.5
+open_cold n=3000 median_us=2.5 p90_us=2.9 p99_us=16.7 mean_us=2.9
+open_cold n=3000 median_us=2.5 p90_us=2.7 p99_us=3.1 mean_us=2.6
+open_cold n=3000 median_us=2.5 p90_us=2.8 p99_us=9.9 mean_us=2.8
+open_warm n=3000 median_us=2.5 p90_us=2.7 p99_us=4.2 mean_us=2.6
+open_warm n=3000 median_us=2.5 p90_us=2.9 p99_us=16.0 mean_us=2.8
+open_warm n=3000 median_us=2.6 p90_us=3.4 p99_us=19.6 mean_us=3.6
+== native done

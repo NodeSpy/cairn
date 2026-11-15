@@ -1,0 +1,404 @@
+[tail incl. unaligned EOF 12288+4097 -> dst@12288 (dst longer than end)] FICLONERANGE src_off=12288 len=4097 dst_off=12288 errno=22(Invalid argument (os error 22)) us=8 dst_size 65536->65536
+[tail to dst EOF: dst=20000 B, S[12288..EOF]->dst@12288] FICLONERANGE src_off=12288 len=0 dst_off=12288 errno=22(Invalid argument (os error 22)) us=24 dst_size 20000->20000
+[dst==16385 B (same size as src): tail 12288+4097 -> dst@12288] FICLONERANGE src_off=12288 len=4097 dst_off=12288 errno=0 us=41 dst_size 16385->16385
+[dst==16385 B (same size as src): tail 12288+4097 -> dst@12288] FICLONERANGE src_off=12288 len=4097 dst_off=12288 errno=0 us=41 dst_size 16385->16385
+[dst==16385 B: whole file len 0 from 0 (FICLONE-like)] FICLONERANGE src_off=0 len=0 dst_off=0 errno=0 us=56 dst_size 16385->16385
+[dst==16384 B (aligned, shorter than src's unaligned end): tail 12288+4097] FICLONERANGE src_off=12288 len=4097 dst_off=12288 errno=0 us=49 dst_size 16384->16385
+[dst==16384 B (aligned, shorter than src's unaligned end): tail 12288+4097] FICLONERANGE src_off=12288 len=4097 dst_off=12288 errno=0 us=49 dst_size 16384->16385
+##### clone with FAN_PRE_ACCESS marks present (hsmd --fill none = log only)
+== dst-marked
+- FICLONE:
+FICLONE errno=0 us=74020 dst_before[size=65536 bytes_alloc=65536 mtime=1794547018.923779250 ctime=1794547018.923779250] dst_after[size=1048576 bytes_alloc=1048576 mtime=1794547019.021777425 ctime=1794547019.021777425] dst:mtime_changed=true ctime_changed=true size_changed=true src:mtime_changed=false ctime_changed=false size_changed=false
+  rc=0
+- FICLONERANGE 4096@0:
+FICLONERANGE src_off=0 len=4096 dst_off=0 errno=0 us=97 dst_size 1048576->1048576 dst:mtime_changed=true ctime_changed=true size_changed=false src:mtime_changed=false ctime_changed=false size_changed=false
+  rc=0
+- dedupe (ro dst):
+FIDEDUPERANGE dstmode=ro errno=0 status=SAME bytes_deduped=1048576 us=77368 dst:mtime_changed=false ctime_changed=false size_changed=false src:mtime_changed=false ctime_changed=false size_changed=fals
+  rc=0
+- events seen by hsmd (excluding the file opens that this tool does not do):
+    EVT pid=7835 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/dst range=0+0 act=allow-nofill us=71
+    EVT pid=7837 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/dst range=0+4096 act=allow-nofill us=27
+    EVT pid=7838 comm=cp mask=0x100000 path=/cache/exp-ovl/e7/f/dst range=0+262144 act=allow-nofill us=24
+    EVT pid=7838 comm=cp mask=0x100000 path=/cache/exp-ovl/e7/f/dst range=262144+262144 act=allow-nofill us=17
+    EVT pid=7838 comm=cp mask=0x100000 path=/cache/exp-ovl/e7/f/dst range=524288+262144 act=allow-nofill us=15
+    EVT pid=7838 comm=cp mask=0x100000 path=/cache/exp-ovl/e7/f/dst range=786432+262144 act=allow-nofill us=14
+    EVT pid=7842 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/dst range=0+1048576 act=allow-nofill us=31
+== src-marked
+- FICLONE:
+FICLONE errno=0 us=108 dst_before[size=65536 bytes_alloc=65536 mtime=1794547019.349516645 ctime=1794547019.349516645] dst_after[size=1048576 bytes_alloc=1048576 mtime=1794547019.373770862 ctime=1794547019.373770862] dst:mtime_changed=true ctime_changed=true size_changed=true src:mtime_changed=false ctime_changed=false size_changed=false
+  rc=0
+- FICLONERANGE 4096@0:
+FICLONERANGE src_off=0 len=4096 dst_off=0 errno=0 us=166 dst_size 1048576->1048576 dst:mtime_changed=true ctime_changed=true size_changed=false src:mtime_changed=false ctime_changed=false size_changed=false
+  rc=0
+- dedupe (ro dst):
+FIDEDUPERANGE dstmode=ro errno=0 status=SAME bytes_deduped=1048576 us=302 dst:mtime_changed=false ctime_changed=false size_changed=false src:mtime_changed=false ctime_changed=false size_changed=false 
+  rc=0
+- events seen by hsmd (excluding the file opens that this tool does not do):
+    EVT pid=7855 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=0+0 act=allow-nofill us=22
+    EVT pid=7857 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=0+4096 act=allow-nofill us=30
+    EVT pid=7858 comm=cp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=0+262144 act=allow-nofill us=24
+    EVT pid=7858 comm=cp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=262144+262144 act=allow-nofill us=16
+    EVT pid=7858 comm=cp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=524288+262144 act=allow-nofill us=15
+    EVT pid=7858 comm=cp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=786432+262144 act=allow-nofill us=14
+    EVT pid=7858 comm=cp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=1048576+262144 act=allow-nofill us=14
+    EVT pid=7862 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=0+1048576 act=allow-nofill us=25
+    EVT pid=7862 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=0+1048576 act=allow-nofill us=14
+== both-marked
+- FICLONE:
+FICLONE errno=0 us=197 dst_before[size=65536 bytes_alloc=65536 mtime=1794547019.623766201 ctime=1794547019.623766201] dst_after[size=1048576 bytes_alloc=1048576 mtime=1794547019.647765754 ctime=1794547019.647765754] dst:mtime_changed=true ctime_changed=true size_changed=true src:mtime_changed=false ctime_changed=false size_changed=false
+  rc=0
+- FICLONERANGE 4096@0:
+FICLONERANGE src_off=0 len=4096 dst_off=0 errno=0 us=142 dst_size 1048576->1048576 dst:mtime_changed=true ctime_changed=true size_changed=false src:mtime_changed=false ctime_changed=false size_changed=false
+  rc=0
+- dedupe (ro dst):
+FIDEDUPERANGE dstmode=ro errno=0 status=SAME bytes_deduped=1048576 us=62297 dst:mtime_changed=false ctime_changed=false size_changed=false src:mtime_changed=false ctime_changed=false size_changed=fals
+  rc=0
+- events seen by hsmd (excluding the file opens that this tool does not do):
+    EVT pid=7875 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=0+0 act=allow-nofill us=31
+    EVT pid=7875 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/dst range=0+0 act=allow-nofill us=20
+    EVT pid=7877 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=0+4096 act=allow-nofill us=25
+    EVT pid=7877 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/dst range=0+4096 act=allow-nofill us=20
+    EVT pid=7878 comm=cp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=0+262144 act=allow-nofill us=22
+    EVT pid=7878 comm=cp mask=0x100000 path=/cache/exp-ovl/e7/f/dst range=0+262144 act=allow-nofill us=18
+    EVT pid=7878 comm=cp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=262144+262144 act=allow-nofill us=18
+    EVT pid=7878 comm=cp mask=0x100000 path=/cache/exp-ovl/e7/f/dst range=262144+262144 act=allow-nofill us=17
+    EVT pid=7878 comm=cp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=524288+262144 act=allow-nofill us=17
+    EVT pid=7878 comm=cp mask=0x100000 path=/cache/exp-ovl/e7/f/dst range=524288+262144 act=allow-nofill us=17
+    EVT pid=7878 comm=cp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=786432+262144 act=allow-nofill us=18
+    EVT pid=7878 comm=cp mask=0x100000 path=/cache/exp-ovl/e7/f/dst range=786432+262144 act=allow-nofill us=31
+    EVT pid=7878 comm=cp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=1048576+262144 act=allow-nofill us=18
+    EVT pid=7882 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=0+1048576 act=allow-nofill us=30
+    EVT pid=7882 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=0+1048576 act=allow-nofill us=17
+    EVT pid=7882 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/dst range=0+1048576 act=allow-nofill us=19
+== dir-marked(dst dir, ON_CHILD)
+- FICLONE:
+FICLONE errno=0 us=168 dst_before[size=65536 bytes_alloc=65536 mtime=1794547019.960673638 ctime=1794547019.960673638] dst_after[size=1048576 bytes_alloc=1048576 mtime=1794547019.983759489 ctime=1794547019.983759489] dst:mtime_changed=true ctime_changed=true size_changed=true src:mtime_changed=false ctime_changed=false size_changed=false
+  rc=0
+- FICLONERANGE 4096@0:
+FICLONERANGE src_off=0 len=4096 dst_off=0 errno=0 us=234 dst_size 1048576->1048576 dst:mtime_changed=true ctime_changed=true size_changed=false src:mtime_changed=false ctime_changed=false size_changed=false
+  rc=0
+- dedupe (ro dst):
+FIDEDUPERANGE dstmode=ro errno=0 status=SAME bytes_deduped=1048576 us=60834 dst:mtime_changed=false ctime_changed=false size_changed=false src:mtime_changed=false ctime_changed=false size_changed=fals
+  rc=0
+- events seen by hsmd (excluding the file opens that this tool does not do):
+    EVT pid=7895 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=0+0 act=allow-nofill us=23
+    EVT pid=7895 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/dst range=0+0 act=allow-nofill us=20
+    EVT pid=7897 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=0+4096 act=allow-nofill us=31
+    EVT pid=7897 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/dst range=0+4096 act=allow-nofill us=33
+    EVT pid=7898 comm=cp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=0+262144 act=allow-nofill us=23
+    EVT pid=7898 comm=cp mask=0x100000 path=/cache/exp-ovl/e7/f/dst range=0+262144 act=allow-nofill us=20
+    EVT pid=7898 comm=cp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=262144+262144 act=allow-nofill us=19
+    EVT pid=7898 comm=cp mask=0x100000 path=/cache/exp-ovl/e7/f/dst range=262144+262144 act=allow-nofill us=18
+    EVT pid=7898 comm=cp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=524288+262144 act=allow-nofill us=19
+    EVT pid=7898 comm=cp mask=0x100000 path=/cache/exp-ovl/e7/f/dst range=524288+262144 act=allow-nofill us=18
+    EVT pid=7898 comm=cp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=786432+262144 act=allow-nofill us=18
+    EVT pid=7898 comm=cp mask=0x100000 path=/cache/exp-ovl/e7/f/dst range=786432+262144 act=allow-nofill us=17
+    EVT pid=7898 comm=cp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=1048576+262144 act=allow-nofill us=25
+    EVT pid=7902 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=0+1048576 act=allow-nofill us=30
+    EVT pid=7902 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/src range=0+1048576 act=allow-nofill us=29
+    EVT pid=7902 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/dst range=0+1048576 act=allow-nofill us=14
+== placeholder dst (sparse, size 1 MiB, inode-marked, fill none) cloned from real src
+FICLONE errno=0 us=193 dst_before[size=1048576 bytes_alloc=0 mtime=1794547020.297753626 ctime=1794547020.297753626] dst_after[size=1048576 bytes_alloc=1048576 mtime=1794547020.321753178 ctime=1794547020.321753178] dst:mtime_changed=true ctime_changed=true size_changed=false src:mtime_changed=false ctime_changed=false size_changed=false
+  content identical after clone
+    EVT pid=7916 comm=xp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=0+0 act=allow-nofill us=80
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=0+4096 act=allow-nofill us=24
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=4096+4096 act=allow-nofill us=17
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=8192+4096 act=allow-nofill us=37
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=12288+4096 act=allow-nofill us=35
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=16384+4096 act=allow-nofill us=16
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=20480+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=24576+4096 act=allow-nofill us=32
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=28672+4096 act=allow-nofill us=16
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=32768+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=36864+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=40960+4096 act=allow-nofill us=37
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=45056+4096 act=allow-nofill us=16
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=49152+4096 act=allow-nofill us=29
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=53248+4096 act=allow-nofill us=28
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=57344+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=61440+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=65536+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=69632+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=73728+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=77824+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=81920+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=86016+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=90112+4096 act=allow-nofill us=29
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=94208+4096 act=allow-nofill us=20
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=98304+4096 act=allow-nofill us=29
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=102400+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=106496+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=110592+4096 act=allow-nofill us=18
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=114688+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=118784+4096 act=allow-nofill us=20
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=122880+4096 act=allow-nofill us=25
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=126976+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=131072+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=135168+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=139264+4096 act=allow-nofill us=17
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=143360+4096 act=allow-nofill us=18
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=147456+4096 act=allow-nofill us=16
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=151552+4096 act=allow-nofill us=16
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=155648+4096 act=allow-nofill us=16
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=159744+4096 act=allow-nofill us=16
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=163840+4096 act=allow-nofill us=17
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=167936+4096 act=allow-nofill us=47
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=172032+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=176128+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=180224+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=184320+4096 act=allow-nofill us=30
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=188416+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=192512+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=196608+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=200704+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=204800+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=208896+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=212992+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=217088+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=221184+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=225280+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=229376+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=233472+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=237568+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=241664+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=245760+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=249856+4096 act=allow-nofill us=33
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=253952+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=258048+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=262144+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=266240+4096 act=allow-nofill us=17
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=270336+4096 act=allow-nofill us=16
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=274432+4096 act=allow-nofill us=17
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=278528+4096 act=allow-nofill us=16
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=282624+4096 act=allow-nofill us=17
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=286720+4096 act=allow-nofill us=18
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=290816+4096 act=allow-nofill us=17
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=294912+4096 act=allow-nofill us=16
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=299008+4096 act=allow-nofill us=17
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=303104+4096 act=allow-nofill us=30
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=307200+4096 act=allow-nofill us=16
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=311296+4096 act=allow-nofill us=17
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=315392+4096 act=allow-nofill us=16
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=319488+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=323584+4096 act=allow-nofill us=16
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=327680+4096 act=allow-nofill us=19
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=331776+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=335872+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=339968+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=344064+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=348160+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=352256+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=356352+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=360448+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=364544+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=368640+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=372736+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=376832+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=380928+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=385024+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=389120+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=393216+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=397312+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=401408+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=405504+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=409600+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=413696+4096 act=allow-nofill us=50
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=417792+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=421888+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=425984+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=430080+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=434176+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=438272+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=442368+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=446464+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=450560+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=454656+4096 act=allow-nofill us=26
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=458752+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=462848+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=466944+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=471040+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=475136+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=479232+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=483328+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=487424+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=491520+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=495616+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=499712+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=503808+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=507904+4096 act=allow-nofill us=43
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=512000+4096 act=allow-nofill us=32
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=516096+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=520192+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=524288+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=528384+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=532480+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=536576+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=540672+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=544768+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=548864+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=552960+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=557056+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=561152+4096 act=allow-nofill us=30
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=565248+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=569344+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=573440+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=577536+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=581632+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=585728+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=589824+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=593920+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=598016+4096 act=allow-nofill us=40
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=602112+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=606208+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=610304+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=614400+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=618496+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=622592+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=626688+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=630784+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=634880+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=638976+4096 act=allow-nofill us=12
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=643072+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=647168+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=651264+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=655360+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=659456+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=663552+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=667648+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=671744+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=675840+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=679936+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=684032+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=688128+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=692224+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=696320+4096 act=allow-nofill us=18
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=700416+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=704512+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=708608+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=712704+4096 act=allow-nofill us=52
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=716800+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=720896+4096 act=allow-nofill us=28
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=724992+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=729088+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=733184+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=737280+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=741376+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=745472+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=749568+4096 act=allow-nofill us=31
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=753664+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=757760+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=761856+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=765952+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=770048+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=774144+4096 act=allow-nofill us=19
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=778240+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=782336+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=786432+4096 act=allow-nofill us=33
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=790528+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=794624+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=798720+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=802816+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=806912+4096 act=allow-nofill us=17
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=811008+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=815104+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=819200+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=823296+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=827392+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=831488+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=835584+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=839680+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=843776+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=847872+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=851968+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=856064+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=860160+4096 act=allow-nofill us=33
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=864256+4096 act=allow-nofill us=17
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=868352+4096 act=allow-nofill us=16
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=872448+4096 act=allow-nofill us=16
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=876544+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=880640+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=884736+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=888832+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=892928+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=897024+4096 act=allow-nofill us=40
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=901120+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=905216+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=909312+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=913408+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=917504+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=921600+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=925696+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=929792+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=933888+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=937984+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=942080+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=946176+4096 act=allow-nofill us=13
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=950272+4096 act=allow-nofill us=40
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=954368+4096 act=allow-nofill us=16
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=958464+4096 act=allow-nofill us=16
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=962560+4096 act=allow-nofill us=17
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=966656+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=970752+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=974848+4096 act=allow-nofill us=28
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=978944+4096 act=allow-nofill us=32
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=983040+4096 act=allow-nofill us=16
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=987136+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=991232+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=995328+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=999424+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=1003520+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=1007616+4096 act=allow-nofill us=19
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=1011712+4096 act=allow-nofill us=17
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=1015808+4096 act=allow-nofill us=18
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=1019904+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=1024000+4096 act=allow-nofill us=14
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=1028096+4096 act=allow-nofill us=15
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=1032192+4096 act=allow-nofill us=18
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=1036288+4096 act=allow-nofill us=18
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=1040384+4096 act=allow-nofill us=18
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=1044480+4096 act=allow-nofill us=18
+    EVT pid=7917 comm=cmp mask=0x100000 path=/cache/exp-ovl/e7/f/ph range=1048576+4096 act=allow-nofill us=18
+
+##### inotify + mtime/ctime for clone and dedupe
+- FICLONE new file:
+FICLONE errno=0 us=62308 dst_before[size=0 bytes_alloc=0 mtime=1794547020.355752543 ctime=1794547020.355752543] dst_after[size=1048576 bytes_alloc=1048576 mtime=1794547020.437751009 ctime=1794547020.437751009] dst:mtime_changed=true ctime_changed=true size_changed=true src:mtime_changed=false ctime_changed=false size_changed=false
+  inotify events:
+    IN /cache/exp-ovl/e7/i src OPEN
+    IN /cache/exp-ovl/e7/i cl CREATE
+    IN /cache/exp-ovl/e7/i cl OPEN
+    IN /cache/exp-ovl/e7/i src ACCESS
+    IN /cache/exp-ovl/e7/i cl MODIFY
+    IN /cache/exp-ovl/e7/i cl CLOSE_WRITE
+    IN /cache/exp-ovl/e7/i src CLOSE_NOWRITE
+- FICLONERANGE into existing:
+FICLONERANGE src_off=0 len=8192 dst_off=0 errno=0 us=63 dst_size 1048576->1048576 dst:mtime_changed=true ctime_changed=true size_changed=false src:mtime_changed=false ctime_changed=false size_changed=false
+  inotify events:
+    IN /cache/exp-ovl/e7/i src OPEN
+    IN /cache/exp-ovl/e7/i cl OPEN
+    IN /cache/exp-ovl/e7/i/cl  OPEN
+    IN /cache/exp-ovl/e7/i src ACCESS
+    IN /cache/exp-ovl/e7/i cl MODIFY
+    IN /cache/exp-ovl/e7/i/cl  MODIFY
+    IN /cache/exp-ovl/e7/i cl CLOSE_WRITE
+    IN /cache/exp-ovl/e7/i/cl  CLOSE_WRITE
+    IN /cache/exp-ovl/e7/i src CLOSE_NOWRITE
+- FIDEDUPERANGE dst opened O_RDONLY:
+FIDEDUPERANGE dstmode=ro errno=0 status=SAME bytes_deduped=1048576 us=70627 dst:mtime_changed=false ctime_changed=false size_changed=false src:mtime_changed=false ctime_changed=false size_changed=false dst_after[size=1048576 bytes_alloc=1048576 mtime=1794547020.353941748 ctime=1794547020.353941748]
+  inotify events:
+    IN /cache/exp-ovl/e7/i src OPEN
+    IN /cache/exp-ovl/e7/i dup OPEN
+    IN /cache/exp-ovl/e7/i/dup  OPEN
+    IN /cache/exp-ovl/e7/i dup CLOSE_NOWRITE
+    IN /cache/exp-ovl/e7/i/dup  CLOSE_NOWRITE
+    IN /cache/exp-ovl/e7/i src CLOSE_NOWRITE
+- FIDEDUPERANGE dst opened O_RDWR:
+FIDEDUPERANGE dstmode=rw errno=0 status=SAME bytes_deduped=1048576 us=113249 dst:mtime_changed=false ctime_changed=false size_changed=false src:mtime_changed=false ctime_changed=false size_changed=false dst_after[size=1048576 bytes_alloc=1048576 mtime=1794547026.379581053 ctime=1794547026.379581053]
+  inotify events:
+    IN /cache/exp-ovl/e7/i src2 OPEN
+    IN /cache/exp-ovl/e7/i dup2 OPEN
+    IN /cache/exp-ovl/e7/i/dup2  OPEN
+    IN /cache/exp-ovl/e7/i dup2 CLOSE_WRITE
+    IN /cache/exp-ovl/e7/i/dup2  CLOSE_WRITE
+    IN /cache/exp-ovl/e7/i src2 CLOSE_NOWRITE
+

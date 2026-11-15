@@ -1,0 +1,38 @@
+=== E3.A deterministic cases (probe = fresh O_RDONLY + F_SETLEASE F_RDLCK inside handler)
+none           ext_reader=true  premark=false probes=[unneutered=EAGAIN neutered=OK] [unneutered=EAGAIN neutered=OK] [unneutered=EAGAIN neutered=OK] [unneutered=EAGAIN neutered=OK] [unneutered=EAGAIN neutered=OK] ; holder: READY ; reader: bytes=262144 fnv=731c2e4a23a5b6e1 zeros=0 err=OK t0=1349859621951 t1=1349861518333 => PASS
+rdonly         ext_reader=true  premark=false probes=[unneutered=EAGAIN neutered=OK] [unneutered=EAGAIN neutered=OK] [unneutered=EAGAIN neutered=OK] [unneutered=EAGAIN neutered=OK] [unneutered=EAGAIN neutered=OK] ; holder: READY ; reader: bytes=262144 fnv=731c2e4a23a5b6e1 zeros=0 err=OK t0=1349862643235 t1=1349864570392 => PASS
+opath          ext_reader=true  premark=false probes=[unneutered=EAGAIN neutered=OK] [unneutered=EAGAIN neutered=OK] [unneutered=EAGAIN neutered=OK] [unneutered=EAGAIN neutered=OK] [unneutered=EAGAIN neutered=OK] ; holder: READY ; reader: bytes=262144 fnv=731c2e4a23a5b6e1 zeros=0 err=OK t0=1349865683908 t1=1349867293749 => PASS
+wronly         ext_reader=true  premark=false probes=[unneutered=EAGAIN neutered=EAGAIN] [unneutered=EAGAIN neutered=EAGAIN] [unneutered=EAGAIN neutered=EAGAIN] [unneutered=EAGAIN neutered=EAGAIN] [unneutered=EAGAIN neutered=EAGAIN] ; holder: READY ; reader: bytes=262144 fnv=731c2e4a23a5b6e1 zeros=0 err=OK t0=1349868354296 t1=1349869939101 => PASS
+rdwr           ext_reader=true  premark=false probes=[unneutered=EAGAIN neutered=EAGAIN] [unneutered=EAGAIN neutered=EAGAIN] [unneutered=EAGAIN neutered=EAGAIN] [unneutered=EAGAIN neutered=EAGAIN] [unneutered=EAGAIN neutered=EAGAIN] ; holder: READY ; reader: bytes=262144 fnv=731c2e4a23a5b6e1 zeros=0 err=OK t0=1349871414669 t1=1349873307211 => PASS
+trunc          ext_reader=true  premark=false probes=[unneutered=EAGAIN neutered=EAGAIN] ; holder: READY ; reader: bytes=0 fnv=cbf29ce484222325 zeros=0 err=OK t0=1349874338944 t1=1349874403877 => PASS
+wronly         ext_reader=true  premark=true  probes=[unneutered=EAGAIN neutered=EAGAIN] [unneutered=EAGAIN neutered=EAGAIN] [unneutered=EAGAIN neutered=EAGAIN] [unneutered=EAGAIN neutered=EAGAIN] [unneutered=EAGAIN neutered=EAGAIN] ; holder: READY ; reader: bytes=262144 fnv=731c2e4a23a5b6e1 zeros=0 err=OK t0=1349875483714 t1=1349877422869 => PASS
+rdwr-read      ext_reader=false premark=false probes=[unneutered=EAGAIN neutered=EAGAIN] ; holder: READY pread=4096 zeros=0 ; reader:  => PASS
+wronly-write   ext_reader=false premark=false probes=[unneutered=EAGAIN neutered=EAGAIN] ; holder: READY pwrite=1 ; reader:  => PASS
+trunc-write    ext_reader=false premark=false probes=[unneutered=EAGAIN neutered=EAGAIN] ; holder: READY pwrite=1 ; reader:  => PASS
+trunc-extend   ext_reader=false premark=false probes=[unneutered=EAGAIN neutered=EAGAIN] ; holder: READY ftruncate_extend=0 ; reader:  => PASS
+ftrunc         ext_reader=false premark=false probes=[unneutered=EAGAIN neutered=EAGAIN] ; holder: READY ftruncate_shrink1=0 ; reader:  => PASS
+ftrunc-same    ext_reader=false premark=false probes=[unneutered=EAGAIN neutered=EAGAIN] ; holder: READY ftruncate_same=0 ; reader:  => PASS
+mmapw-open     ext_reader=false premark=false probes=[unneutered=EAGAIN neutered=EAGAIN] ; holder: READY mmap_ok=true ; reader:  => PASS
+mmapw-closed   ext_reader=true  premark=false probes=[unneutered=EAGAIN neutered=EAGAIN] [unneutered=EAGAIN neutered=EAGAIN] [unneutered=EAGAIN neutered=EAGAIN] [unneutered=EAGAIN neutered=EAGAIN] [unneutered=EAGAIN neutered=EAGAIN] [unneutered=EAGAIN neutered=EAGAIN] ; holder: READY mmap_ok=true ; reader: bytes=262144 fnv=731c2e4a23a5b6e1 zeros=0 err=OK t0=1349900230372 t1=1349901217876 => PASS
+mmapr-closed   ext_reader=true  premark=false probes=[unneutered=EAGAIN neutered=OK] [unneutered=EAGAIN neutered=OK] [unneutered=EAGAIN neutered=OK] [unneutered=EAGAIN neutered=OK] [unneutered=EAGAIN neutered=OK] [unneutered=EAGAIN neutered=OK] ; holder: READY mmap_ok=true ; reader: bytes=262144 fnv=731c2e4a23a5b6e1 zeros=0 err=OK t0=1349902990257 t1=1349904055214 => PASS
+mmapp-closed   ext_reader=true  premark=false probes=[unneutered=EAGAIN neutered=OK] [unneutered=EAGAIN neutered=OK] [unneutered=EAGAIN neutered=OK] [unneutered=EAGAIN neutered=OK] [unneutered=EAGAIN neutered=OK] [unneutered=EAGAIN neutered=OK] ; holder: READY mmap_ok=true ; reader: bytes=262144 fnv=731c2e4a23a5b6e1 zeros=0 err=OK t0=1349905755183 t1=1349906874790 => PASS
+stale          ext_reader=true  premark=false probes=[unneutered=EAGAIN neutered=EAGAIN] [unneutered=EAGAIN neutered=OK] [unneutered=EAGAIN neutered=OK] [unneutered=EAGAIN neutered=OK] [unneutered=EAGAIN neutered=OK] [unneutered=EAGAIN neutered=OK] ; holder: READY pwrite=1 ; reader: bytes=262144 fnv=1800240dbe92578b zeros=0 err=OK t0=1349908547755 t1=1349909693835 => PASS
+=== E3.B handler keeps the lease it just won, then a writer opens (full design flow)
+reader: bytes=262144 fnv=731c2e4a23a5b6e1 zeros=0 err=OK t0=1349910462421 t1=1351113637699
+lease kept by handler: 5 fd(s); F_GETLEASE=RDLCK
+writer open blocked 300.3 ms (breaker delay 300 ms), breaks signalled=1
+variant B (handler removes the mark first, then takes+keeps RDLCK): reader: bytes=262144 fnv=731c2e4a23a5b6e1 zeros=0 err=OK t0=1351415150959 t1=1351416611243
+  reader total 1.46 ms; correct=true
+  later writer open blocked 300.2 ms (breaker delay 300 ms), breaks signalled=1
+=== E3.C randomized stress: 500 trials; expectation = writer present iff holder kind in {wronly, rdwr, trunc, mmapw-closed}
+mmapp-closed   trials=  44 EAGAIN=   0 OK=  44 no-event=   0
+mmapr-closed   trials=  49 EAGAIN=   0 OK=  49 no-event=   0
+mmapw-closed   trials=  54 EAGAIN=  54 OK=   0 no-event=   0
+none           trials=  51 EAGAIN=   0 OK=  51 no-event=   0
+opath          trials=  44 EAGAIN=   0 OK=  44 no-event=   0
+rdonly         trials=  54 EAGAIN=   0 OK=  54 no-event=   0
+rdwr           trials=  55 EAGAIN=  55 OK=   0 no-event=   0
+stale          trials=  47 EAGAIN=   0 OK=  47 no-event=   0
+trunc-extend   trials=  52 EAGAIN=  52 OK=   0 no-event=   0
+wronly         trials=  50 EAGAIN=  50 OK=   0 no-event=   0
+false negatives (writer present, probe OK) = 0 ; false positives = 0 ; trials with no event = 0

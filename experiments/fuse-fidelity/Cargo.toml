@@ -1,0 +1,17 @@
+[package]
+name = "fuse-fidelity"
+version = "0.1.0"
+edition = "2021"
+description = "E15: fuse-pt hardened into a general-purpose POSIX loopback (fd-based inode table, full xattr/mknod/rename2/copy_file_range), for overlayfs and Docker"
+
+[workspace]
+
+[dependencies]
+# default-features = false: pure-Rust mount (direct mount(2) as root, fusermount fallback), no libfuse link,
+# so the binary builds static for x86_64-unknown-linux-musl.
+fuser = { version = "=0.18.0", default-features = false }
+libc = "0.2"
+
+[profile.release]
+opt-level = 3
+debug = false

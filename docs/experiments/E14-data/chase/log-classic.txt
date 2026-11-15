@@ -1,0 +1,11 @@
+== classic fuse: setup
+stat n=3000 median_us=12.5 p90_us=22.8 p99_us=49.3 mean_us=15.3
+stat n=3000 median_us=12.3 p90_us=22.6 p99_us=47.8 mean_us=15.4
+stat n=3000 median_us=12.6 p90_us=23.4 p99_us=51.1 mean_us=16.0
+open_cold n=3000 median_us=29.4 p90_us=47.1 p99_us=99.3 mean_us=35.1
+open_cold n=3000 median_us=30.4 p90_us=48.4 p99_us=85.1 mean_us=35.5
+open_cold n=3000 median_us=31.5 p90_us=49.3 p99_us=85.9 mean_us=36.3
+open_warm n=3000 median_us=16.3 p90_us=19.2 p99_us=44.9 mean_us=18.0
+open_warm n=3000 median_us=15.9 p90_us=18.3 p99_us=39.7 mean_us=17.4
+open_warm n=3000 median_us=16.0 p90_us=17.5 p99_us=38.6 mean_us=17.0
+== classic done

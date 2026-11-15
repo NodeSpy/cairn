@@ -1,0 +1,4 @@
+RESULT marks mode=sb limited=false marks_added=1 stopped= errno=0 mark_syscall_secs=0.01 wall_secs=0.01 marks_per_s=184 max_user_marks=35997
+MEM marks_live_before_drop count=1 dSlab=0MiB dSUnreclaim=0MiB dSReclaimable=0MiB dMemAvailable=0MiB dMemFree=0MiB | per_item: slab=0B sunreclaim=0B memfree=487424B
+MEM marks_pinned_after_drop_caches count=1 dSlab=0MiB dSUnreclaim=0MiB dSReclaimable=0MiB dMemAvailable=-3MiB dMemFree=-4MiB | per_item: slab=4096B sunreclaim=4096B memfree=4644864B
+MEM marks_after_close_and_drop count=1 dSlab=0MiB dSUnreclaim=0MiB dSReclaimable=0MiB dMemAvailable=-4MiB dMemFree=-4MiB | per_item: slab=4096B sunreclaim=4096B memfree=4644864B

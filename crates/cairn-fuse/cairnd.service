@@ -1,0 +1,26 @@
+# cairnd: cairn client daemon (FUSE mounts, one per configured root).
+# Install: cp cairnd.service /etc/systemd/system/ && systemctl daemon-reload && systemctl enable --now cairnd
+# Not installed by the build.
+[Unit]
+Description=cairn client daemon
+After=network-online.target local-fs.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# Absolute paths: systemd's minimal PATH hides tools in /usr/local/bin.
+ExecStart=/usr/local/bin/cairnd --config /etc/cairn/cairnd.toml
+# SIGTERM unmounts every root and flushes the state DB before exiting.
+KillSignal=SIGTERM
+TimeoutStopSec=60
+Restart=on-failure
+RestartSec=2
+# One O_PATH/backing fd per cached object: raise the fd limit (cairnd also raises the soft limit itself).
+LimitNOFILE=1048576
+# Mounting needs CAP_SYS_ADMIN; the daemon runs as root (it enforces nothing itself: default_permissions does).
+User=root
+# A crashed daemon leaves a dead mount behind: clean it up before restarting.
+ExecStopPost=-/bin/sh -c 'for m in $(awk "\\$3 ~ /^fuse/ && \\$1 ~ /^cairn/ {print \\$2}" /proc/mounts); do umount -l "$m"; done'
+
+[Install]
+WantedBy=multi-user.target

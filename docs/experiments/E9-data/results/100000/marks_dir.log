@@ -1,0 +1,9 @@
+RESULT marks mode=dir limited=false marks_added=6666 stopped= errno=0 mark_syscall_secs=0.95 wall_secs=1.29 marks_per_s=7000 max_user_marks=35997
+MEM marks_live_before_drop count=6666 dSlab=3MiB dSUnreclaim=0MiB dSReclaimable=2MiB dMemAvailable=0MiB dMemFree=-9MiB | per_item: slab=508B sunreclaim=85B memfree=1485B
+  CACHE marks_live_before_drop btrfs_inode dObjs=2924 dKiB=2695 per_item=414B
+  CACHE marks_live_before_drop sigqueue dObjs=5712 dKiB=446 per_item=69B
+MEM marks_pinned_after_drop_caches count=6666 dSlab=3MiB dSUnreclaim=0MiB dSReclaimable=2MiB dMemAvailable=0MiB dMemFree=-1MiB | per_item: slab=514B sunreclaim=96B memfree=282B
+  CACHE marks_pinned_after_drop_caches btrfs_inode dObjs=2924 dKiB=2695 per_item=414B
+  CACHE marks_pinned_after_drop_caches sigqueue dObjs=5712 dKiB=446 per_item=69B
+MEM marks_after_close_and_drop count=6666 dSlab=-2MiB dSUnreclaim=0MiB dSReclaimable=-1MiB dMemAvailable=2MiB dMemFree=3MiB | per_item: slab=-316B sunreclaim=-11B memfree=-605B
+  CACHE marks_after_close_and_drop btrfs_inode dObjs=-2074 dKiB=-1911 per_item=-294B

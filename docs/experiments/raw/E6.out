@@ -1,0 +1,36 @@
+=== E6 setup: hot file 64 MiB, 10000 small files of 4 KiB under /cache/exp-hsm/e6
+=== scenario none
+E6|none|pread4K|ops=1992448 secs=3.00 ops_s=663836 MiB_s=2593 mean_ns=1523 p50_ns=1118 p99_ns=15771 events=0 events_s=0 events_per_op=0.00
+E6|none|pread4K-2thr|ops=3710272 secs=3.00 ops_s=1236052 MiB_s=4828 mean_ns=1640 p50_ns=1261 p99_ns=16081 events=0 events_s=0 events_per_op=0.00
+E6|none|read1M|ops=31744 secs=3.01 ops_s=10560 MiB_s=10560 mean_ns=95647 p50_ns=85075 p99_ns=178620 events=0 events_s=0 events_per_op=0.00
+E6|none|small10k-inproc|median_s=0.0727 per_file_us=7.27 events_total_5reps=0 events_per_file=0.00
+E6|none|cat10k|median_s=0.1023 per_file_us=10.23 events_total_5reps=0 events_per_file=0.00
+=== scenario inode
+   handler up: READY setup_ms=29.8
+E6|inode|pread4K|ops=86016 secs=3.00 ops_s=28656 MiB_s=112 mean_ns=35348 p50_ns=31327 p99_ns=81966 events=86016 events_s=28656 events_per_op=1.00
+E6|inode|pread4K-2thr|ops=180096 secs=3.00 ops_s=59992 MiB_s=234 mean_ns=33017 p50_ns=28485 p99_ns=89379 events=180096 events_s=59992 events_per_op=1.00
+E6|inode|read1M|ops=21056 secs=3.00 ops_s=7011 MiB_s=7011 mean_ns=141725 p50_ns=139593 p99_ns=234516 events=21056 events_s=7011 events_per_op=1.00
+E6|inode|small10k-inproc|median_s=0.8720 per_file_us=87.20 events_total_5reps=100000 events_per_file=2.00
+E6|inode|cat10k|median_s=0.8358 per_file_us=83.58 events_total_5reps=100000 events_per_file=2.00
+=== scenario parent
+   handler up: READY setup_ms=0.4
+E6|parent|pread4K|ops=85568 secs=3.00 ops_s=28505 MiB_s=111 mean_ns=35075 p50_ns=29221 p99_ns=86244 events=85568 events_s=28505 events_per_op=1.00
+E6|parent|read1M|ops=19456 secs=3.00 ops_s=6483 MiB_s=6483 mean_ns=154785 p50_ns=149191 p99_ns=268478 events=19456 events_s=6483 events_per_op=1.00
+E6|parent|small10k-inproc|median_s=0.8356 per_file_us=83.56 events_total_5reps=100000 events_per_file=2.00
+E6|parent|cat10k|median_s=0.7557 per_file_us=75.57 events_total_5reps=100000 events_per_file=2.00
+=== scenario sb
+   handler up: READY setup_ms=0.0
+E6|sb|pread4K|ops=82560 secs=3.00 ops_s=27506 MiB_s=107 mean_ns=36562 p50_ns=32146 p99_ns=88943 events=82560 events_s=27506 events_per_op=1.00
+E6|sb|read1M|ops=21312 secs=3.00 ops_s=7102 MiB_s=7102 mean_ns=141123 p50_ns=136069 p99_ns=250570 events=21312 events_s=7102 events_per_op=1.00
+E6|sb|small10k-inproc|median_s=0.8557 per_file_us=85.57 events_total_5reps=100000 events_per_file=2.00
+E6|sb|cat10k|median_s=0.8323 per_file_us=83.23 events_total_5reps=100000 events_per_file=2.00
+=== scenario other
+   handler up: READY setup_ms=0.0
+E6|other|pread4K|ops=1956160 secs=3.00 ops_s=651823 MiB_s=2546 mean_ns=1551 p50_ns=1125 p99_ns=15194 events=0 events_s=0 events_per_op=0.00
+E6|other|read1M|ops=31296 secs=3.00 ops_s=10429 MiB_s=10429 mean_ns=95748 p50_ns=91193 p99_ns=165319 events=0 events_s=0 events_per_op=0.00
+E6|other|small10k-inproc|median_s=0.0780 per_file_us=7.80 events_total_5reps=0 events_per_file=0.00
+E6|other|cat10k|median_s=0.1003 per_file_us=10.03 events_total_5reps=0 events_per_file=0.00
+=== scenario premark
+   handler up: READY setup_ms=0.0
+E6|premark|pread4K|ops=2021248 secs=3.00 ops_s=673484 MiB_s=2631 mean_ns=1510 p50_ns=1109 p99_ns=15103 events=0 events_s=0 events_per_op=0.00
+E6|premark|read1M|ops=38336 secs=3.00 ops_s=12767 MiB_s=12767 mean_ns=78326 p50_ns=71285 p99_ns=155368 events=0 events_s=0 events_per_op=0.00

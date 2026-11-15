@@ -1,0 +1,47 @@
+##### 1 GiB dedupe
+- cold cache dedupe (measured once earlier: single call 1 GiB took 851.7 s = 1.2 MiB/s, latency-bound, no readahead). Prefetching first:
+  cat big big2 (2 GiB sequential cold read): 21.790450633 s
+  single call for whole 1 GiB (warm):
+FIDEDUPERANGE dstmode=ro errno=0 status=SAME bytes_deduped=1073741824 us=164252 dst:mtime_changed=false ctime_
+  16 MiB chunks, warm:
+dedupefile size=1073741824 chunk=16777216 deduped=1073741824 calls=64 differs=0 err=0 secs=0.165 MiB_per_s=6211.5
+  128 MiB chunks, warm:
+dedupefile size=1073741824 chunk=134217728 deduped=1073741824 calls=8 differs=0 err=0 secs=307.436 MiB_per_s=3.3
+  16 MiB chunks, warm, already shared:
+dedupefile size=1073741824 chunk=16777216 deduped=1073741824 calls=64 differs=0 err=0 secs=1.719 MiB_per_s=595.8
+  fs used before dedupe=4719149056 after=1491468288 (reclaimed 3078 MiB, expect 3072)
+
+##### fill speed: pwrite vs FICLONE (all via event fd, unmark after fill, cold cache)
+== 10000 files x 16384 bytes
+  READY marks=10000 mark_ms=401
+  pwrite: readall files=10000 bytes=163840000 errors=0 secs=23.971 files_per_s=417 MiB_per_s=6.5 lat_us_p50=1362 p99=12144
+  events logged: 10000, fill errors: 0; avg handler us: 2251
+  READY marks=10000 mark_ms=496
+  clone: readall files=10000 bytes=163840000 errors=0 secs=12.673 files_per_s=789 MiB_per_s=12.3 lat_us_p50=1252 p99=3200
+  events logged: 10000, fill errors: 0; avg handler us: 103
+  fs used now (clone left the placeholders sharing extents with store): 603357184
+== 1000 files x 1048576 bytes
+  READY marks=1000 mark_ms=91
+  pwrite: readall files=1000 bytes=1048576000 errors=0 secs=43.820 files_per_s=23 MiB_per_s=22.8 lat_us_p50=15433 p99=443269
+  events logged: 1000, fill errors: 0; avg handler us: 43595
+  READY marks=1000 mark_ms=53
+  clone: readall files=1000 bytes=1048576000 errors=0 secs=18.815 files_per_s=53 MiB_per_s=53.2 lat_us_p50=12563 p99=51604
+  events logged: 1000, fill errors: 0; avg handler us: 126
+  fs used now (clone left the placeholders sharing extents with store): 1469054976
+== 20 files x 67108864 bytes
+  READY marks=20 mark_ms=3
+  pwrite: readall files=20 bytes=1342177280 errors=0 secs=44.985 files_per_s=0 MiB_per_s=28.5 lat_us_p50=2034143 p99=5265797
+  events logged: 20, fill errors: 0; avg handler us: 2243552
+  READY marks=20 mark_ms=6
+  clone: readall files=20 bytes=1342177280 errors=0 secs=14.631 files_per_s=1 MiB_per_s=87.5 lat_us_p50=720506 p99=1214108
+  events logged: 20, fill errors: 0; avg handler us: 92
+  fs used now (clone left the placeholders sharing extents with store): 1760591872
+== 1 files x 1073741824 bytes
+  READY marks=1 mark_ms=7
+  pwrite: readall files=1 bytes=1073741824 errors=0 secs=35.173 files_per_s=0 MiB_per_s=29.1 lat_us_p50=35172918 p99=35172918
+  events logged: 1, fill errors: 0; avg handler us: 35098298
+  READY marks=1 mark_ms=4
+  clone: readall files=1 bytes=1073741824 errors=0 secs=12.686 files_per_s=0 MiB_per_s=80.7 lat_us_p50=12685504 p99=12685504
+  events logged: 1, fill errors: 0; avg handler us: 137
+  fs used now (clone left the placeholders sharing extents with store): 1491599360
+

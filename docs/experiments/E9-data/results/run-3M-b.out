@@ -1,0 +1,132 @@
+INFO nofile_before cur=1024 max=524288
+  CHUNK open upto=300000 secs=175.38
+  CHUNK open upto=600000 secs=28.36
+  CHUNK open upto=900000 secs=16.11
+  CHUNK open upto=1200000 secs=10.65
+  CHUNK open upto=1500000 secs=7.30
+RESULT leases open_files=1560576 stopped=memguard errno=0 open_wall_secs=238.84 (includes tree walk)
+MEM open_only count=1560576 dSlab=2267MiB dSUnreclaim=401MiB dSReclaimable=1865MiB dMemAvailable=-624MiB dMemFree=-2374MiB | per_item: slab=1523B sunreclaim=270B memfree=1596B
+  CACHE open_only btrfs_inode dObjs=1666102 dKiB=1535937 per_item=1008B
+  CACHE open_only dentry dObjs=1653960 dKiB=310117 per_item=203B
+  CACHE open_only filp dObjs=1557654 dKiB=292060 per_item=192B
+  CACHE open_only lsm_file_cache dObjs=3200640 dKiB=100020 per_item=66B
+  CACHE open_only radix_tree_node dObjs=47992 dKiB=27370 per_item=18B
+  CACHE open_only kmalloc-192 dObjs=69867 dKiB=13100 per_item=9B
+  CHUNK lease upto=300000 secs=0.36
+  CHUNK lease upto=600000 secs=0.37
+  CHUNK lease upto=900000 secs=0.35
+  CHUNK lease upto=1200000 secs=0.34
+  CHUNK lease upto=1500000 secs=0.33
+RESULT leases leased=1560576 failed=0 errno=0 secs=1.83 leases_per_s=854587
+MEM lease_increment count=1560576 dSlab=511MiB dSUnreclaim=511MiB dSReclaimable=0MiB dMemAvailable=-322MiB dMemFree=-356MiB | per_item: slab=343B sunreclaim=343B memfree=240B
+  CACHE lease_increment file_lease_cache dObjs=1559675 dKiB=243699 per_item=160B
+  CACHE lease_increment kmalloc-64 dObjs=1559296 dKiB=97456 per_item=64B
+  CACHE lease_increment ftrace_event_field dObjs=1556214 dKiB=85105 per_item=56B
+  CACHE lease_increment ip_fib_trie dObjs=1559410 dKiB=73097 per_item=48B
+  CACHE lease_increment kmalloc-1k dObjs=17744 dKiB=17744 per_item=12B
+MEM lease_total_open_plus_lease count=1560576 dSlab=2778MiB dSUnreclaim=912MiB dSReclaimable=1865MiB dMemAvailable=-947MiB dMemFree=-2731MiB | per_item: slab=1867B sunreclaim=613B memfree=1835B
+  CACHE lease_total_open_plus_lease btrfs_inode dObjs=1666102 dKiB=1535937 per_item=1008B
+  CACHE lease_total_open_plus_lease dentry dObjs=1653960 dKiB=310117 per_item=203B
+  CACHE lease_total_open_plus_lease filp dObjs=1557654 dKiB=292060 per_item=192B
+  CACHE lease_total_open_plus_lease file_lease_cache dObjs=1559675 dKiB=243699 per_item=160B
+  CACHE lease_total_open_plus_lease lsm_file_cache dObjs=3200640 dKiB=100020 per_item=66B
+  CACHE lease_total_open_plus_lease kmalloc-64 dObjs=1559296 dKiB=97456 per_item=64B
+  CACHE lease_total_open_plus_lease ftrace_event_field dObjs=1556214 dKiB=85105 per_item=56B
+  CACHE lease_total_open_plus_lease ip_fib_trie dObjs=1559410 dKiB=73097 per_item=48B
+INFO RLIMIT_SIGPENDING cur=15382 max=15382
+RESULT storm default_sigpending breaks_triggered=200000 other=0 trigger_secs=0.92 rt_signals_received=15382 unique_fds=15382 sigio_fallbacks=1 drain_secs=0.00
+RESULT storm raised_sigpending breaks_triggered=200000 other=0 trigger_secs=0.72 rt_signals_received=200000 unique_fds=200000 sigio_fallbacks=0 drain_secs=0.03
+RESULT leases release_secs=1.51 close_secs=1.76
+MEM after_release_close count=1560576 dSlab=0MiB dSUnreclaim=0MiB dSReclaimable=0MiB dMemAvailable=-45MiB dMemFree=-37MiB | per_item: slab=0B sunreclaim=1B memfree=25B
+  CACHE after_release_close dentry dObjs=-5922 dKiB=-1110 per_item=-1B
+  CACHE after_release_close proc_inode_cache dObjs=1380 dKiB=862 per_item=1B
+  CACHE after_release_close kmalloc-192 dObjs=-1659 dKiB=-311 per_item=-0B
+  CACHE after_release_close radix_tree_node dObjs=462 dKiB=263 per_item=0B
+RESULT fid baseline_no_group create_secs=1.95 delete_secs=1.94 files=100000
+RESULT fid mode=dirs marks=200000 mark_secs=42.52
+MEM fid_marks_live count=200000 dSlab=254MiB dSUnreclaim=35MiB dSReclaimable=219MiB dMemAvailable=-215MiB dMemFree=-728MiB | per_item: slab=1334B sunreclaim=185B memfree=3818B
+  CACHE fid_marks_live btrfs_inode dObjs=197642 dKiB=182201 per_item=933B
+  CACHE fid_marks_live dentry dObjs=188349 dKiB=35315 per_item=181B
+  CACHE fid_marks_live sigqueue dObjs=198339 dKiB=15495 per_item=79B
+  CACHE fid_marks_live fsnotify_inode_mark_connector dObjs=198390 dKiB=7749 per_item=40B
+  CACHE fid_marks_live btrfs_extent_buffer dObjs=25245 dKiB=5916 per_item=30B
+  CACHE fid_marks_live lsm_file_cache dObjs=169600 dKiB=5300 per_item=27B
+  CACHE fid_marks_live radix_tree_node dObjs=4396 dKiB=2507 per_item=13B
+  CACHE fid_marks_live kmalloc-512 dObjs=2400 dKiB=1200 per_item=6B
+MEM fid_marks_pinned_after_drop count=200000 dSlab=213MiB dSUnreclaim=29MiB dSReclaimable=184MiB dMemAvailable=-125MiB dMemFree=-217MiB | per_item: slab=1122B sunreclaim=156B memfree=1138B
+  CACHE fid_marks_pinned_after_drop btrfs_inode dObjs=197642 dKiB=182201 per_item=933B
+  CACHE fid_marks_pinned_after_drop sigqueue dObjs=198339 dKiB=15495 per_item=79B
+  CACHE fid_marks_pinned_after_drop fsnotify_inode_mark_connector dObjs=198390 dKiB=7749 per_item=40B
+  CACHE fid_marks_pinned_after_drop lsm_file_cache dObjs=169600 dKiB=5300 per_item=27B
+  CACHE fid_marks_pinned_after_drop radix_tree_node dObjs=4312 dKiB=2459 per_item=13B
+  CACHE fid_marks_pinned_after_drop kmalloc-512 dObjs=2400 dKiB=1200 per_item=6B
+  CACHE fid_marks_pinned_after_drop btrfs_extent_buffer dObjs=3077 dKiB=721 per_item=4B
+MEM fid_queue_at_end_of_workload count=0 dSlab=-22MiB dSUnreclaim=-5MiB dSReclaimable=-17MiB dMemAvailable=-15MiB dMemFree=326MiB | per_item: slab=-23744512B sunreclaim=-5500928B memfree=-341884928B
+  CACHE fid_queue_at_end_of_workload dentry dObjs=-96600 dKiB=-18112 per_item=-18547200B
+  CACHE fid_queue_at_end_of_workload btrfs_extent_buffer dObjs=-22321 dKiB=-5231 per_item=-5357040B
+  CACHE fid_queue_at_end_of_workload btrfs_inode dObjs=527 dKiB=485 per_item=497488B
+  CACHE fid_queue_at_end_of_workload kmalloc-192 dObjs=-1995 dKiB=-374 per_item=-383040B
+RESULT fid run mode=dirs reader=fast queue=unlimited files=100000 create_secs=2.92 delete_secs=2.23 (baseline 1.95/1.94) events=201322 create=100000 delete=100000 open=101000 close_write=100000 overflow=0 drain_after_workload_secs=0.00 events_per_s_overall=24043
+RESULT fid baseline_no_group create_secs=1.22 delete_secs=1.96 files=100000
+RESULT fid mode=sb marks=1 mark_secs=0.01
+MEM fid_marks_live count=1 dSlab=0MiB dSUnreclaim=0MiB dSReclaimable=0MiB dMemAvailable=0MiB dMemFree=0MiB | per_item: slab=0B sunreclaim=0B memfree=258048B
+MEM fid_marks_pinned_after_drop count=1 dSlab=0MiB dSUnreclaim=0MiB dSReclaimable=0MiB dMemAvailable=8MiB dMemFree=8MiB | per_item: slab=-73728B sunreclaim=-73728B memfree=-9310208B
+MEM fid_queue_at_end_of_workload count=0 dSlab=20MiB dSUnreclaim=0MiB dSReclaimable=19MiB dMemAvailable=-56MiB dMemFree=-136MiB | per_item: slab=21176320B sunreclaim=221184B memfree=143216640B
+  CACHE fid_queue_at_end_of_workload dentry dObjs=92862 dKiB=17411 per_item=17829504B
+  CACHE fid_queue_at_end_of_workload btrfs_inode dObjs=2193 dKiB=2021 per_item=2070192B
+  CACHE fid_queue_at_end_of_workload radix_tree_node dObjs=1078 dKiB=614 per_item=629552B
+  CACHE fid_queue_at_end_of_workload btrfs_extent_buffer dObjs=1139 dKiB=266 per_item=273360B
+RESULT fid run mode=sb reader=fast queue=unlimited files=100000 create_secs=2.81 delete_secs=2.21 (baseline 1.22/1.96) events=201297 create=100000 delete=100000 open=101000 close_write=100000 overflow=0 drain_after_workload_secs=0.00 events_per_s_overall=23172
+RESULT fid baseline_no_group create_secs=1.27 delete_secs=1.98 files=100000
+RESULT fid mode=dirs marks=200000 mark_secs=42.52
+MEM fid_marks_live count=200000 dSlab=256MiB dSUnreclaim=36MiB dSReclaimable=220MiB dMemAvailable=-195MiB dMemFree=-721MiB | per_item: slab=1345B sunreclaim=190B memfree=3784B
+  CACHE fid_marks_live btrfs_inode dObjs=198254 dKiB=182765 per_item=936B
+  CACHE fid_marks_live dentry dObjs=189588 dKiB=35547 per_item=182B
+  CACHE fid_marks_live sigqueue dObjs=198492 dKiB=15507 per_item=79B
+  CACHE fid_marks_live fsnotify_inode_mark_connector dObjs=198288 dKiB=7745 per_item=40B
+  CACHE fid_marks_live btrfs_extent_buffer dObjs=27251 dKiB=6386 per_item=33B
+  CACHE fid_marks_live lsm_file_cache dObjs=172416 dKiB=5388 per_item=28B
+  CACHE fid_marks_live radix_tree_node dObjs=4970 dKiB=2834 per_item=15B
+  CACHE fid_marks_live kmalloc-512 dObjs=2320 dKiB=1160 per_item=6B
+MEM fid_marks_pinned_after_drop count=200000 dSlab=215MiB dSUnreclaim=30MiB dSReclaimable=185MiB dMemAvailable=-107MiB dMemFree=-200MiB | per_item: slab=1128B sunreclaim=158B memfree=1054B
+  CACHE fid_marks_pinned_after_drop btrfs_inode dObjs=198254 dKiB=182765 per_item=936B
+  CACHE fid_marks_pinned_after_drop sigqueue dObjs=198492 dKiB=15507 per_item=79B
+  CACHE fid_marks_pinned_after_drop fsnotify_inode_mark_connector dObjs=198288 dKiB=7745 per_item=40B
+  CACHE fid_marks_pinned_after_drop lsm_file_cache dObjs=172416 dKiB=5388 per_item=28B
+  CACHE fid_marks_pinned_after_drop radix_tree_node dObjs=4872 dKiB=2778 per_item=14B
+  CACHE fid_marks_pinned_after_drop kmalloc-512 dObjs=2320 dKiB=1160 per_item=6B
+  CACHE fid_marks_pinned_after_drop btrfs_extent_buffer dObjs=4233 dKiB=992 per_item=5B
+MEM fid_queue_at_end_of_workload count=0 dSlab=-2MiB dSUnreclaim=14MiB dSReclaimable=-17MiB dMemAvailable=-32MiB dMemFree=320MiB | per_item: slab=-3067904B sunreclaim=15335424B memfree=-335876096B
+  CACHE fid_queue_at_end_of_workload kmalloc-cg-96 dObjs=196686 dKiB=18439 per_item=18881856B
+  CACHE fid_queue_at_end_of_workload dentry dObjs=-96726 dKiB=-18136 per_item=-18571392B
+  CACHE fid_queue_at_end_of_workload btrfs_extent_buffer dObjs=-23120 dKiB=-5418 per_item=-5548800B
+  CACHE fid_queue_at_end_of_workload kmalloc-512 dObjs=4672 dKiB=2336 per_item=2392064B
+  CACHE fid_queue_at_end_of_workload kmalloc-192 dObjs=-4284 dKiB=-803 per_item=-822528B
+  CACHE fid_queue_at_end_of_workload btrfs_inode dObjs=476 dKiB=438 per_item=449344B
+RESULT fid run mode=dirs reader=slow queue=unlimited files=100000 create_secs=3.28 delete_secs=2.61 (baseline 1.27/1.98) events=201000 create=100000 delete=100000 open=101000 close_write=100000 overflow=0 drain_after_workload_secs=0.07 events_per_s_overall=21424
+RESULT fid baseline_no_group create_secs=1.28 delete_secs=2.03 files=100000
+RESULT fid mode=dirs marks=200000 mark_secs=42.10
+MEM fid_marks_live count=200000 dSlab=255MiB dSUnreclaim=35MiB dSReclaimable=219MiB dMemAvailable=-191MiB dMemFree=-705MiB | per_item: slab=1338B sunreclaim=187B memfree=3697B
+  CACHE fid_marks_live btrfs_inode dObjs=197744 dKiB=182295 per_item=933B
+  CACHE fid_marks_live dentry dObjs=189336 dKiB=35500 per_item=182B
+  CACHE fid_marks_live sigqueue dObjs=198441 dKiB=15503 per_item=79B
+  CACHE fid_marks_live fsnotify_inode_mark_connector dObjs=198186 dKiB=7741 per_item=40B
+  CACHE fid_marks_live btrfs_extent_buffer dObjs=25364 dKiB=5944 per_item=30B
+  CACHE fid_marks_live lsm_file_cache dObjs=171776 dKiB=5368 per_item=27B
+  CACHE fid_marks_live radix_tree_node dObjs=4676 dKiB=2666 per_item=14B
+  CACHE fid_marks_live kmalloc-512 dObjs=2256 dKiB=1128 per_item=6B
+MEM fid_marks_pinned_after_drop count=200000 dSlab=214MiB dSUnreclaim=29MiB dSReclaimable=184MiB dMemAvailable=-109MiB dMemFree=-201MiB | per_item: slab=1123B sunreclaim=156B memfree=1054B
+  CACHE fid_marks_pinned_after_drop btrfs_inode dObjs=197744 dKiB=182295 per_item=933B
+  CACHE fid_marks_pinned_after_drop sigqueue dObjs=198441 dKiB=15503 per_item=79B
+  CACHE fid_marks_pinned_after_drop fsnotify_inode_mark_connector dObjs=198186 dKiB=7741 per_item=40B
+  CACHE fid_marks_pinned_after_drop lsm_file_cache dObjs=171776 dKiB=5368 per_item=27B
+  CACHE fid_marks_pinned_after_drop radix_tree_node dObjs=4606 dKiB=2626 per_item=13B
+  CACHE fid_marks_pinned_after_drop kmalloc-512 dObjs=2256 dKiB=1128 per_item=6B
+  CACHE fid_marks_pinned_after_drop btrfs_extent_buffer dObjs=2567 dKiB=601 per_item=3B
+MEM fid_queue_at_end_of_workload count=0 dSlab=-22MiB dSUnreclaim=-4MiB dSReclaimable=-17MiB dMemAvailable=0MiB dMemFree=343MiB | per_item: slab=-23269376B sunreclaim=-5033984B memfree=-359727104B
+  CACHE fid_queue_at_end_of_workload dentry dObjs=-96495 dKiB=-18092 per_item=-18527040B
+  CACHE fid_queue_at_end_of_workload btrfs_extent_buffer dObjs=-22984 dKiB=-5386 per_item=-5516160B
+  CACHE fid_queue_at_end_of_workload kmalloc-cg-96 dObjs=11928 dKiB=1118 per_item=1145088B
+  CACHE fid_queue_at_end_of_workload kmalloc-192 dObjs=-4221 dKiB=-791 per_item=-810432B
+  CACHE fid_queue_at_end_of_workload btrfs_inode dObjs=578 dKiB=532 per_item=545632B
+RESULT fid run mode=dirs reader=slow queue=limited files=100000 create_secs=3.02 delete_secs=2.28 (baseline 1.28/2.03) events=16385 create=15384 delete=0 open=16383 close_write=15383 overflow=1 drain_after_workload_secs=0.02 events_per_s_overall=1967

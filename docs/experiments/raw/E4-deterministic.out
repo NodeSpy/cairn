@@ -1,0 +1,12 @@
+=== E4.D deterministic refusal cases (single eviction attempt of one file; holder opened BEFORE the mark)
+none           holder-open-before-mark: outcome=Evicted blocks_after=0 lease_after=none marked_after=true expected_evict=true => PASS
+closed         holder-open-before-mark: outcome=Evicted blocks_after=0 lease_after=none marked_after=true expected_evict=true => PASS
+opath          holder-open-before-mark: outcome=Evicted blocks_after=0 lease_after=none marked_after=true expected_evict=true => PASS
+rdonly         holder-open-before-mark: outcome=Refused(11) blocks_after=512 lease_after=RDLCK marked_after=false expected_evict=false => PASS
+rdwr           holder-open-before-mark: outcome=Refused(11) blocks_after=512 lease_after=none marked_after=false expected_evict=false => PASS
+wronly         holder-open-before-mark: outcome=Refused(11) blocks_after=512 lease_after=none marked_after=false expected_evict=false => PASS
+mmapr-closed   holder-open-before-mark: outcome=Refused(11) blocks_after=512 lease_after=RDLCK marked_after=false expected_evict=false => PASS
+mmapp-closed   holder-open-before-mark: outcome=Refused(11) blocks_after=512 lease_after=RDLCK marked_after=false expected_evict=false => PASS
+mmapw-closed   holder-open-before-mark: outcome=Refused(11) blocks_after=512 lease_after=none marked_after=false expected_evict=false => PASS
+post-mark rdonly holder (HSM-mode open, no read yet): outcome=Refused(11) blocks_after=512
+post-mark rdwr   holder (HSM-mode open, no read yet): outcome=Refused(11) blocks_after=512

@@ -1,0 +1,44 @@
+INFO nofile_before cur=1024 max=524288
+  CHUNK open upto=300000 secs=175.38
+  CHUNK open upto=600000 secs=28.36
+  CHUNK open upto=900000 secs=16.11
+  CHUNK open upto=1200000 secs=10.65
+  CHUNK open upto=1500000 secs=7.30
+RESULT leases open_files=1560576 stopped=memguard errno=0 open_wall_secs=238.84 (includes tree walk)
+MEM open_only count=1560576 dSlab=2267MiB dSUnreclaim=401MiB dSReclaimable=1865MiB dMemAvailable=-624MiB dMemFree=-2374MiB | per_item: slab=1523B sunreclaim=270B memfree=1596B
+  CACHE open_only btrfs_inode dObjs=1666102 dKiB=1535937 per_item=1008B
+  CACHE open_only dentry dObjs=1653960 dKiB=310117 per_item=203B
+  CACHE open_only filp dObjs=1557654 dKiB=292060 per_item=192B
+  CACHE open_only lsm_file_cache dObjs=3200640 dKiB=100020 per_item=66B
+  CACHE open_only radix_tree_node dObjs=47992 dKiB=27370 per_item=18B
+  CACHE open_only kmalloc-192 dObjs=69867 dKiB=13100 per_item=9B
+  CHUNK lease upto=300000 secs=0.36
+  CHUNK lease upto=600000 secs=0.37
+  CHUNK lease upto=900000 secs=0.35
+  CHUNK lease upto=1200000 secs=0.34
+  CHUNK lease upto=1500000 secs=0.33
+RESULT leases leased=1560576 failed=0 errno=0 secs=1.83 leases_per_s=854587
+MEM lease_increment count=1560576 dSlab=511MiB dSUnreclaim=511MiB dSReclaimable=0MiB dMemAvailable=-322MiB dMemFree=-356MiB | per_item: slab=343B sunreclaim=343B memfree=240B
+  CACHE lease_increment file_lease_cache dObjs=1559675 dKiB=243699 per_item=160B
+  CACHE lease_increment kmalloc-64 dObjs=1559296 dKiB=97456 per_item=64B
+  CACHE lease_increment ftrace_event_field dObjs=1556214 dKiB=85105 per_item=56B
+  CACHE lease_increment ip_fib_trie dObjs=1559410 dKiB=73097 per_item=48B
+  CACHE lease_increment kmalloc-1k dObjs=17744 dKiB=17744 per_item=12B
+MEM lease_total_open_plus_lease count=1560576 dSlab=2778MiB dSUnreclaim=912MiB dSReclaimable=1865MiB dMemAvailable=-947MiB dMemFree=-2731MiB | per_item: slab=1867B sunreclaim=613B memfree=1835B
+  CACHE lease_total_open_plus_lease btrfs_inode dObjs=1666102 dKiB=1535937 per_item=1008B
+  CACHE lease_total_open_plus_lease dentry dObjs=1653960 dKiB=310117 per_item=203B
+  CACHE lease_total_open_plus_lease filp dObjs=1557654 dKiB=292060 per_item=192B
+  CACHE lease_total_open_plus_lease file_lease_cache dObjs=1559675 dKiB=243699 per_item=160B
+  CACHE lease_total_open_plus_lease lsm_file_cache dObjs=3200640 dKiB=100020 per_item=66B
+  CACHE lease_total_open_plus_lease kmalloc-64 dObjs=1559296 dKiB=97456 per_item=64B
+  CACHE lease_total_open_plus_lease ftrace_event_field dObjs=1556214 dKiB=85105 per_item=56B
+  CACHE lease_total_open_plus_lease ip_fib_trie dObjs=1559410 dKiB=73097 per_item=48B
+INFO RLIMIT_SIGPENDING cur=15382 max=15382
+RESULT storm default_sigpending breaks_triggered=200000 other=0 trigger_secs=0.92 rt_signals_received=15382 unique_fds=15382 sigio_fallbacks=1 drain_secs=0.00
+RESULT storm raised_sigpending breaks_triggered=200000 other=0 trigger_secs=0.72 rt_signals_received=200000 unique_fds=200000 sigio_fallbacks=0 drain_secs=0.03
+RESULT leases release_secs=1.51 close_secs=1.76
+MEM after_release_close count=1560576 dSlab=0MiB dSUnreclaim=0MiB dSReclaimable=0MiB dMemAvailable=-45MiB dMemFree=-37MiB | per_item: slab=0B sunreclaim=1B memfree=25B
+  CACHE after_release_close dentry dObjs=-5922 dKiB=-1110 per_item=-1B
+  CACHE after_release_close proc_inode_cache dObjs=1380 dKiB=862 per_item=1B
+  CACHE after_release_close kmalloc-192 dObjs=-1659 dKiB=-311 per_item=-0B
+  CACHE after_release_close radix_tree_node dObjs=462 dKiB=263 per_item=0B

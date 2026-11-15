@@ -1,0 +1,18 @@
+RESULT marks mode=dir limited=false marks_added=66666 stopped= errno=0 mark_syscall_secs=11.34 wall_secs=14.86 marks_per_s=5877 max_user_marks=35997
+MEM marks_live_before_drop count=66666 dSlab=80MiB dSUnreclaim=9MiB dSReclaimable=70MiB dMemAvailable=-136MiB dMemFree=-263MiB | per_item: slab=1261B sunreclaim=156B memfree=4142B
+  CACHE marks_live_before_drop btrfs_inode dObjs=64770 dKiB=59709 per_item=917B
+  CACHE marks_live_before_drop dentry dObjs=57582 dKiB=10796 per_item=166B
+  CACHE marks_live_before_drop sigqueue dObjs=65025 dKiB=5080 per_item=78B
+  CACHE marks_live_before_drop fsnotify_inode_mark_connector dObjs=65586 dKiB=2561 per_item=39B
+  CACHE marks_live_before_drop lsm_file_cache dObjs=45952 dKiB=1436 per_item=22B
+  CACHE marks_live_before_drop btrfs_extent_buffer dObjs=3213 dKiB=753 per_item=12B
+  CACHE marks_live_before_drop kmalloc-512 dObjs=720 dKiB=360 per_item=6B
+MEM marks_pinned_after_drop_caches count=66666 dSlab=68MiB dSUnreclaim=9MiB dSReclaimable=59MiB dMemAvailable=-39MiB dMemFree=-69MiB | per_item: slab=1073B sunreclaim=143B memfree=1092B
+  CACHE marks_pinned_after_drop_caches btrfs_inode dObjs=64770 dKiB=59709 per_item=917B
+  CACHE marks_pinned_after_drop_caches sigqueue dObjs=65025 dKiB=5080 per_item=78B
+  CACHE marks_pinned_after_drop_caches fsnotify_inode_mark_connector dObjs=65586 dKiB=2561 per_item=39B
+  CACHE marks_pinned_after_drop_caches lsm_file_cache dObjs=45952 dKiB=1436 per_item=22B
+  CACHE marks_pinned_after_drop_caches radix_tree_node dObjs=-798 dKiB=-455 per_item=-7B
+  CACHE marks_pinned_after_drop_caches kmalloc-512 dObjs=720 dKiB=360 per_item=6B
+MEM marks_after_close_and_drop count=66666 dSlab=0MiB dSUnreclaim=0MiB dSReclaimable=0MiB dMemAvailable=4MiB dMemFree=4MiB | per_item: slab=-13B sunreclaim=-1B memfree=-72B
+  CACHE marks_after_close_and_drop radix_tree_node dObjs=-1652 dKiB=-942 per_item=-14B

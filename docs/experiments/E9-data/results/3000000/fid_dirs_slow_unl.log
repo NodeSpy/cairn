@@ -1,0 +1,27 @@
+RESULT fid baseline_no_group create_secs=1.27 delete_secs=1.98 files=100000
+RESULT fid mode=dirs marks=200000 mark_secs=42.52
+MEM fid_marks_live count=200000 dSlab=256MiB dSUnreclaim=36MiB dSReclaimable=220MiB dMemAvailable=-195MiB dMemFree=-721MiB | per_item: slab=1345B sunreclaim=190B memfree=3784B
+  CACHE fid_marks_live btrfs_inode dObjs=198254 dKiB=182765 per_item=936B
+  CACHE fid_marks_live dentry dObjs=189588 dKiB=35547 per_item=182B
+  CACHE fid_marks_live sigqueue dObjs=198492 dKiB=15507 per_item=79B
+  CACHE fid_marks_live fsnotify_inode_mark_connector dObjs=198288 dKiB=7745 per_item=40B
+  CACHE fid_marks_live btrfs_extent_buffer dObjs=27251 dKiB=6386 per_item=33B
+  CACHE fid_marks_live lsm_file_cache dObjs=172416 dKiB=5388 per_item=28B
+  CACHE fid_marks_live radix_tree_node dObjs=4970 dKiB=2834 per_item=15B
+  CACHE fid_marks_live kmalloc-512 dObjs=2320 dKiB=1160 per_item=6B
+MEM fid_marks_pinned_after_drop count=200000 dSlab=215MiB dSUnreclaim=30MiB dSReclaimable=185MiB dMemAvailable=-107MiB dMemFree=-200MiB | per_item: slab=1128B sunreclaim=158B memfree=1054B
+  CACHE fid_marks_pinned_after_drop btrfs_inode dObjs=198254 dKiB=182765 per_item=936B
+  CACHE fid_marks_pinned_after_drop sigqueue dObjs=198492 dKiB=15507 per_item=79B
+  CACHE fid_marks_pinned_after_drop fsnotify_inode_mark_connector dObjs=198288 dKiB=7745 per_item=40B
+  CACHE fid_marks_pinned_after_drop lsm_file_cache dObjs=172416 dKiB=5388 per_item=28B
+  CACHE fid_marks_pinned_after_drop radix_tree_node dObjs=4872 dKiB=2778 per_item=14B
+  CACHE fid_marks_pinned_after_drop kmalloc-512 dObjs=2320 dKiB=1160 per_item=6B
+  CACHE fid_marks_pinned_after_drop btrfs_extent_buffer dObjs=4233 dKiB=992 per_item=5B
+MEM fid_queue_at_end_of_workload count=0 dSlab=-2MiB dSUnreclaim=14MiB dSReclaimable=-17MiB dMemAvailable=-32MiB dMemFree=320MiB | per_item: slab=-3067904B sunreclaim=15335424B memfree=-335876096B
+  CACHE fid_queue_at_end_of_workload kmalloc-cg-96 dObjs=196686 dKiB=18439 per_item=18881856B
+  CACHE fid_queue_at_end_of_workload dentry dObjs=-96726 dKiB=-18136 per_item=-18571392B
+  CACHE fid_queue_at_end_of_workload btrfs_extent_buffer dObjs=-23120 dKiB=-5418 per_item=-5548800B
+  CACHE fid_queue_at_end_of_workload kmalloc-512 dObjs=4672 dKiB=2336 per_item=2392064B
+  CACHE fid_queue_at_end_of_workload kmalloc-192 dObjs=-4284 dKiB=-803 per_item=-822528B
+  CACHE fid_queue_at_end_of_workload btrfs_inode dObjs=476 dKiB=438 per_item=449344B
+RESULT fid run mode=dirs reader=slow queue=unlimited files=100000 create_secs=3.28 delete_secs=2.61 (baseline 1.27/1.98) events=201000 create=100000 delete=100000 open=101000 close_write=100000 overflow=0 drain_after_workload_secs=0.07 events_per_s_overall=21424

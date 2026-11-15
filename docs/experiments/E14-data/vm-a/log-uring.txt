@@ -1,0 +1,11 @@
+== uring fuse: setup
+stat n=3000 median_us=13.5 p90_us=27.3 p99_us=66.0 mean_us=18.0
+stat n=3000 median_us=13.5 p90_us=27.1 p99_us=66.8 mean_us=17.6
+stat n=3000 median_us=13.7 p90_us=28.3 p99_us=64.9 mean_us=18.5
+open_cold n=3000 median_us=40.9 p90_us=78.4 p99_us=178.5 mean_us=52.3
+open_cold n=3000 median_us=47.7 p90_us=86.3 p99_us=179.6 mean_us=55.8
+open_cold n=3000 median_us=35.5 p90_us=59.3 p99_us=121.1 mean_us=42.5
+open_warm n=3000 median_us=21.4 p90_us=35.3 p99_us=98.0 mean_us=25.6
+open_warm n=3000 median_us=21.2 p90_us=26.1 p99_us=81.4 mean_us=24.2
+open_warm n=3000 median_us=21.2 p90_us=23.7 p99_us=73.2 mean_us=23.4
+== uring done

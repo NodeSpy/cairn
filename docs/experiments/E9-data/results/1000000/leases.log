@@ -1,0 +1,53 @@
+INFO nofile_before cur=1024 max=524288
+  CHUNK open upto=100000 secs=19.77
+  CHUNK open upto=200000 secs=11.25
+  CHUNK open upto=300000 secs=7.19
+  CHUNK open upto=400000 secs=4.25
+  CHUNK open upto=500000 secs=2.68
+  CHUNK open upto=600000 secs=1.88
+  CHUNK open upto=700000 secs=1.26
+  CHUNK open upto=800000 secs=1.17
+  CHUNK open upto=900000 secs=0.94
+RESULT leases open_files=933175 stopped= errno=0 open_wall_secs=50.75 (includes tree walk)
+MEM open_only count=933175 dSlab=1346MiB dSUnreclaim=239MiB dSReclaimable=1107MiB dMemAvailable=-366MiB dMemFree=-1367MiB | per_item: slab=1513B sunreclaim=269B memfree=1536B
+  CACHE open_only btrfs_inode dObjs=996234 dKiB=918403 per_item=1008B
+  CACHE open_only dentry dObjs=989499 dKiB=185531 per_item=204B
+  CACHE open_only filp dObjs=932001 dKiB=174750 per_item=192B
+  CACHE open_only lsm_file_cache dObjs=1908096 dKiB=59628 per_item=65B
+  CACHE open_only kmalloc-192 dObjs=41979 dKiB=7871 per_item=9B
+  CACHE open_only radix_tree_node dObjs=13328 dKiB=7601 per_item=8B
+  CACHE open_only btrfs_extent_buffer dObjs=-1275 dKiB=-298 per_item=-0B
+  CHUNK lease upto=100000 secs=0.16
+  CHUNK lease upto=200000 secs=0.16
+  CHUNK lease upto=300000 secs=0.15
+  CHUNK lease upto=400000 secs=0.14
+  CHUNK lease upto=500000 secs=0.15
+  CHUNK lease upto=600000 secs=0.14
+  CHUNK lease upto=700000 secs=0.15
+  CHUNK lease upto=800000 secs=0.15
+  CHUNK lease upto=900000 secs=0.15
+RESULT leases leased=933175 failed=0 errno=0 secs=1.40 leases_per_s=667521
+MEM lease_increment count=933175 dSlab=305MiB dSUnreclaim=305MiB dSReclaimable=0MiB dMemAvailable=-310MiB dMemFree=-317MiB | per_item: slab=343B sunreclaim=343B memfree=357B
+  CACHE lease_increment file_lease_cache dObjs=932300 dKiB=145671 per_item=160B
+  CACHE lease_increment kmalloc-64 dObjs=932352 dKiB=58272 per_item=64B
+  CACHE lease_increment ftrace_event_field dObjs=931845 dKiB=50960 per_item=56B
+  CACHE lease_increment ip_fib_trie dObjs=932025 dKiB=43688 per_item=48B
+  CACHE lease_increment kmalloc-1k dObjs=10560 dKiB=10560 per_item=12B
+MEM lease_total_open_plus_lease count=933175 dSlab=1652MiB dSUnreclaim=545MiB dSReclaimable=1107MiB dMemAvailable=-677MiB dMemFree=-1684MiB | per_item: slab=1857B sunreclaim=613B memfree=1893B
+  CACHE lease_total_open_plus_lease btrfs_inode dObjs=996234 dKiB=918403 per_item=1008B
+  CACHE lease_total_open_plus_lease dentry dObjs=989499 dKiB=185531 per_item=204B
+  CACHE lease_total_open_plus_lease filp dObjs=932127 dKiB=174773 per_item=192B
+  CACHE lease_total_open_plus_lease file_lease_cache dObjs=932300 dKiB=145671 per_item=160B
+  CACHE lease_total_open_plus_lease lsm_file_cache dObjs=1908096 dKiB=59628 per_item=65B
+  CACHE lease_total_open_plus_lease kmalloc-64 dObjs=932352 dKiB=58272 per_item=64B
+  CACHE lease_total_open_plus_lease ftrace_event_field dObjs=931845 dKiB=50960 per_item=56B
+  CACHE lease_total_open_plus_lease ip_fib_trie dObjs=932025 dKiB=43688 per_item=48B
+INFO RLIMIT_SIGPENDING cur=15382 max=15382
+RESULT storm default_sigpending breaks_triggered=200000 other=0 trigger_secs=1.14 rt_signals_received=15382 unique_fds=15382 sigio_fallbacks=1 drain_secs=0.00
+RESULT storm raised_sigpending breaks_triggered=200000 other=0 trigger_secs=0.79 rt_signals_received=200000 unique_fds=200000 sigio_fallbacks=0 drain_secs=0.04
+RESULT leases release_secs=1.00 close_secs=1.18
+MEM after_release_close count=933175 dSlab=3MiB dSUnreclaim=0MiB dSReclaimable=3MiB dMemAvailable=-38MiB dMemFree=-44MiB | per_item: slab=4B sunreclaim=1B memfree=50B
+  CACHE after_release_close btrfs_inode dObjs=1683 dKiB=1551 per_item=2B
+  CACHE after_release_close proc_inode_cache dObjs=1440 dKiB=900 per_item=1B
+  CACHE after_release_close dentry dObjs=2310 dKiB=433 per_item=0B
+  CACHE after_release_close btrfs_extent_buffer dObjs=-1275 dKiB=-298 per_item=-0B

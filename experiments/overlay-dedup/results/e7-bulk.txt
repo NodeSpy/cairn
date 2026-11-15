@@ -1,0 +1,15 @@
+##### dedupe throughput
+- 10k x 16 KiB (cold cache):
+  files: 10240
+dedupebulk files=10240 same=10240 differs=0 errors=0 bytes_deduped=167772160 secs=86.196 files_per_s=119 ioctl_us_avg=8228
+  fs used before=776699904 after=607584256 (reclaimed 161 MiB of ~156 expected)
+- same again (already shared, warm):
+dedupebulk files=10240 same=10240 differs=0 errors=0 bytes_deduped=167772160 secs=0.276 files_per_s=37037 ioctl_us_avg=16
+- 10k x 4 KiB (cold):
+dedupebulk files=10000 same=10000 differs=0 errors=0 bytes_deduped=40960000 secs=18.205 files_per_s=549 ioctl_us_avg=1710
+- 10k x 1 KiB (inline extents):
+dedupebulk files=10000 same=10000 differs=0 errors=0 bytes_deduped=10240000 secs=0.226 files_per_s=44307 ioctl_us_avg=12
+- 1 GiB file:
+  single call for whole 1 GiB:
+FIDEDUPERANGE dstmode=ro errno=0 status=SAME bytes_deduped=1073741824 us=851716366 dst:mtime_changed=false ctime_changed=false size_changed=false src:mtime_changed=false ctime_changed=false size_changed=false dst_after[size=1073741824 bytes_alloc=1073741824 mtime=1794547427.671317967 ctime=1794547427.671317967]
+  16 MiB chunks, cold:

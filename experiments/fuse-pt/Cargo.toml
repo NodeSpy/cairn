@@ -1,0 +1,17 @@
+[package]
+name = "fuse-pt"
+version = "0.1.0"
+edition = "2021"
+description = "E11: loopback FUSE with kernel passthrough, for the leasefs client-layer decision"
+
+[workspace]
+
+[dependencies]
+# default-features = false: pure-Rust mount (direct mount(2) as root, fusermount fallback), no libfuse link,
+# so the binary builds static for x86_64-unknown-linux-musl.
+fuser = { path = "vendor/fuser", default-features = false }
+libc = "0.2"
+
+[profile.release]
+opt-level = 3
+debug = false

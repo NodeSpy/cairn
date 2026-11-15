@@ -1,0 +1,52 @@
+#!/bin/sh
+# DSM 7 package control script; runs as the package user (conf/privilege).
+PKG=cairn-server
+BIN="$SYNOPKG_PKGDEST/bin/cairn-server"
+VAR="${SYNOPKG_PKGVAR:-/var/packages/$PKG/var}"
+PIDFILE="$VAR/$PKG.pid"
+LOG="$VAR/$PKG.log"
+# Defaults; override by creating $VAR/env (shell syntax).
+CAIRN_DATA=/volume1/cairn/server
+CAIRN_LISTEN=0.0.0.0:7420
+RUST_LOG=info
+[ -f "$VAR/env" ] && . "$VAR/env"
+export CAIRN_DATA RUST_LOG
+
+running() { [ -s "$PIDFILE" ] && kill -0 "$(cat "$PIDFILE")" 2>/dev/null; }
+
+case "$1" in
+start)
+    running && exit 0
+    if [ ! -f "$CAIRN_DATA/meta.db" ]; then
+        echo "$CAIRN_DATA is not initialised; run: sudo -u cairn-server $SYNOPKG_PKGDEST/bin/cairn-server init $CAIRN_DATA" >>"$LOG"
+        exit 1
+    fi
+    # simple size-based log rotation
+    [ -f "$LOG" ] && [ "$(stat -c %s "$LOG")" -gt 10485760 ] && mv "$LOG" "$LOG.1"
+    nohup "$BIN" serve --data "$CAIRN_DATA" --listen "$CAIRN_LISTEN" >>"$LOG" 2>&1 &
+    echo $! >"$PIDFILE"
+    sleep 1
+    running || { rm -f "$PIDFILE"; exit 1; }
+    ;;
+stop)
+    if running; then
+        pid=$(cat "$PIDFILE")
+        kill "$pid"
+        i=0
+        while kill -0 "$pid" 2>/dev/null && [ $i -lt 30 ]; do sleep 1; i=$((i+1)); done
+        kill -0 "$pid" 2>/dev/null && kill -9 "$pid"
+    fi
+    rm -f "$PIDFILE"
+    ;;
+status)
+    running && exit 0
+    exit 3
+    ;;
+log)
+    echo "$LOG"
+    ;;
+*)
+    exit 1
+    ;;
+esac
+exit 0

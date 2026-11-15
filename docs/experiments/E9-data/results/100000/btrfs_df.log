@@ -1,0 +1,31 @@
+Data, single: total=2.01GiB, used=5.22MiB
+System, DUP: total=8.00MiB, used=16.00KiB
+Metadata, DUP: total=256.00MiB, used=37.56MiB
+GlobalReserve, single: total=5.75MiB, used=0.00B
+Overall:
+    Device size:		       21474836480
+    Device allocated:		        2709520384
+    Device unallocated:		       18765316096
+    Device missing:		                 0
+    Device slack:		                 0
+    Used:			          84279296
+    Free (estimated):		       20915716096	(min: 11533058048)
+    Free (statfs, df):		       20914667520
+    Data ratio:			              1.00
+    Metadata ratio:		              2.00
+    Global reserve:		           6029312	(used: 0)
+    Multiple profiles:		                no
+
+Data,single: Size:2155872256, Used:5472256 (0.25%)
+   /dev/sdb	2155872256
+
+Metadata,DUP: Size:268435456, Used:39387136 (14.67%)
+   /dev/sdb	 536870912
+
+System,DUP: Size:8388608, Used:16384 (0.20%)
+   /dev/sdb	  16777216
+
+Unallocated:
+   /dev/sdb	18765316096
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sdb         20G   87M   20G   1% /cache

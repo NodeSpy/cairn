@@ -1,0 +1,3 @@
+#!/bin/sh
+# data in /volume1/cairn/server is never touched by package scripts
+exit 0

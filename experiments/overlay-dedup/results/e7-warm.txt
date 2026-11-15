@@ -1,0 +1,16 @@
+##### warm-cache: handler cost only (store blobs already in page cache) + 128 MiB chunk dedupe redo
+== 1000 files x 1048576 bytes
+  pwrite: readall files=1000 bytes=1048576000 errors=0 secs=31.707 files_per_s=32 MiB_per_s=31.5 lat_us_p50=351 p99=40079
+  handler avg us: 31579
+  clone: readall files=1000 bytes=1048576000 errors=0 secs=18.903 files_per_s=53 MiB_per_s=52.9 lat_us_p50=12587 p99=54905
+  handler avg us: 77
+== 1 files x 1073741824 bytes
+  pwrite: readall files=1 bytes=1073741824 errors=0 secs=25.574 files_per_s=0 MiB_per_s=40.0 lat_us_p50=25573505 p99=25573505
+  handler avg us: 25499309
+  clone: readall files=1 bytes=1073741824 errors=0 secs=13.350 files_per_s=0 MiB_per_s=76.7 lat_us_p50=13350022 p99=13350022
+  handler avg us: 110
+- 1 GiB, 128 MiB chunks, warm (2 GiB working set):
+dedupefile size=1073741824 chunk=134217728 deduped=1073741824 calls=8 differs=0 err=0 secs=0.156 MiB_per_s=6570.2
+dedupebulk files=10000 same=10000 differs=0 errors=0 bytes_deduped=10240000 secs=0.217 files_per_s=45993 ioctl_us_avg=12
+- 10k x 1 KiB inline: fs used before=479657984 after=479723520 (reclaimed -64 KiB of ~10000 KiB)
+
